@@ -39,7 +39,7 @@ body {
     padding-top: 3px;
 }
 
-input[type="checkbox"] {
+#toggle_switch {
     position: absolute;
     display: none;
 }
@@ -96,28 +96,47 @@ input:checked + label span {
 }
 
 .arrow {
-    border: solid black;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
-  }
-  
-  .right {
+border: solid black;
+border-width: 0 3px 3px 0;
+display: inline-block;
+padding: 3px;
+}
+
+.right {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
-  }
-  
-  .left {
+}
+
+.left {
     transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
-  }
-  
-  .up {
+}
+
+.up {
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
-  }
-  
-  .down {
+}
+
+.down {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
-  }
+}
+
+.list-table { 
+    border-spacing:0px; 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 20px 0; 
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 5px 5px;
+    font-size: 16px;
+}
+th {
+    background: grey;
+}
+td {
+    color: #fff;
+}
