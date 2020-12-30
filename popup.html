@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-  <button id="changeColor" style="height:30px; width:30px; outline:none;"></button>
+  <div class="title">
+    I don't wanna see
+  </div>
+  <div class="switch">
+    <input type="checkbox" id="checkbox" checked>
+    <label for="checkbox"><span></span></label>
+  </div>
+  <div style="clear:both;"></div>
+  <hr>
+  <div class="menu_list">
+    <div class="menu_descriptor">
+      Blocked keywords
+    </div>
+    <div class="menu_button">
+      <i class="arrow right"></i>
+    </div>
+  </div>
+
   <script src="popup.js"></script>
 </body>
 </html>
