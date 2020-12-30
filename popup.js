@@ -1,5 +1,5 @@
-var toggle_switch = $("input[type='checkbox']");
+$("#goto_blocked_keywords_list").click(function() {
+    document.body.innerHTML = "";
 
-toggle_switch.click(function() {
-    $("p").toggle();
-})
+    $('body').animate({height:"300px"});
+});
