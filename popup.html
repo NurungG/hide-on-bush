@@ -3,25 +3,31 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body>
-  <div class="title">
-    I don't wanna see
-  </div>
-  <div class="switch">
-    <input type="checkbox" id="toggle_switch" checked>
-    <label for="toggle_switch"><span></span></label>
-  </div>
-  <div style="clear:both;"></div>
-  <hr>
-  <div class="menu_list" >
-    <div class="menu_descriptor">
-      Blocked keywords
+<body class="popup-wrapper">
+  <div class="popup">
+    <div class="header">
+      <img src="icon.png">
+      Text Blinder
+      <input class="toggle-input" type="checkbox" id="onoff-input">
+      <label for="onoff-input">
+        <div class="toggle-btn btn-off" id="onoff-btn">
+          <div class="toggle-text">OFF</div>
+          <div class="toggle-circle"></div>
+        </div>
+      </label>
     </div>
-    <div class="menu_button" id="goto_blocked_keywords_list">
-      <i class="arrow right"></i>
+    <div class="core">
+      it's core!
+    </div>
+    <div class="footer">
+      <div class="footer-tab">
+        <img src="img/keyword-blind.png">
+      </div>
+      <div class="footer-tab">
+        <img src="img/user-blind.png">
+      </div>
     </div>
   </div>
-
   <script src="popup.js"></script>
 </body>
 </html>
