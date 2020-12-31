@@ -3,9 +3,11 @@ var on_off_btn = document.querySelector("input[name=on_off_btn]");
 
 on_off_btn.addEventListener('change', function() {
     if(this.checked) {
-      document.getElementsByClassName("on_off_text")[0].innerHTML = "ON";
+      document.getElementById("off_text").style.display="none"
+      document.getElementById("on_text").style.display="block"
     } else {
-      document.getElementsByClassName("on_off_text")[0].innerHTML = "OFF";
+      document.getElementById("off_text").style.display="block"
+      document.getElementById("on_text").style.display="none"
     }
 })
 

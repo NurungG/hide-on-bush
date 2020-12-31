@@ -39,45 +39,18 @@
     user-select: none;
 }
 
-.header .toggle-input {
-    display: none;
-}
-
-.header .toggle-btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    width: 48px;
-    height: 20px;
-
-    border-radius: 10px;
-    
-    transition: .4s;
-}
-
-.header .toggle-btn:hover {
-    filter: brightness(110%);
-}
-
-.toggle-btn.btn-on {
-    background: #11a683;
-}
-
-.toggle-btn.btn-off {
-    background: #5f647b;
-}
-
-.toggle-text {
-    color: #fff;
-    font-size: 10px;
-    user-select: none;
-}
-
-.on_off_box .on_off_text {
+.on_off_box .off_text {
     font-size: 10px;
     margin-right: 7px;
     margin-top: 3px;
+    text-align: right;
+}
+
+.on_off_box .on_text {
+    font-size: 10px;
+    margin-left: 7px;
+    margin-top: 3px;
+    text-align: left;
 }
 
 .on_off_box input[id="on_off_btn"] {
@@ -90,7 +63,6 @@
     height: 20px;
     cursor: pointer;
     position: relative;
-    text-align: right;
     vertical-align: top;
     background-color: #5f647b;
 }
@@ -105,7 +77,7 @@
     bottom: 2px;
     position: absolute;
     background-color: #fff;
-    transition: all .4s ease;
+    transition: all .2s ease;
 }
 
 input[id="on_off_btn"]:checked + label {
