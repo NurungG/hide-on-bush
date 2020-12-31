@@ -1,19 +1,13 @@
 // onoff toggle button click event
-document.getElementById("onoff-input").onclick = function(element) {
-    let onoff_btn = document.getElementById("onoff-btn");
-    console.log(onoff_btn);
-    if (onoff_btn.classList.contains("btn-off")) {
-        onoff_btn.classList.remove("btn-off");
-        onoff_btn.classList.add("btn-on");
+var on_off_btn = document.querySelector("input[name=on_off_btn]");
 
-        onoff_btn.getElementsByClassName("toggle-text")[0].innerHTML = "ON";
+on_off_btn.addEventListener('change', function() {
+    if(this.checked) {
+      document.getElementsByClassName("on_off_text")[0].innerHTML = "ON";
     } else {
-        onoff_btn.classList.remove("btn-on");
-        onoff_btn.classList.add("btn-off");
-
-        onoff_btn.getElementsByClassName("toggle-text")[0].innerHTML = "OFF";
+      document.getElementsByClassName("on_off_text")[0].innerHTML = "OFF";
     }
-};
+})
 
 // footer tab click event
 let footer_tab = document.getElementsByClassName("footer-tab");

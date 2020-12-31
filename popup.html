@@ -6,17 +6,18 @@
 </head>
 <body class="popup-wrapper">
   <div class="popup">
+
     <div class="header">
       <img src="icon.png">
       Text Blinder
-      <input class="toggle-input" type="checkbox" id="onoff-input">
-      <label for="onoff-input">
-        <div class="toggle-btn btn-off" id="onoff-btn">
-          <div class="toggle-text">OFF</div>
-          <div class="toggle-circle"></div>
-        </div>
-      </label>
+      <div class="on_off_box">
+        <input type="checkbox" id="on_off_btn" name="on_off_btn">
+        <label for="on_off_btn" class="round">
+          <div class="on_off_text">OFF</div>
+        </label>
+      </div>
     </div>
+
     <div class="core">
       <div class="tab-wrapper" id="tab-keyword-list">
         <div class="search-wrapper">
@@ -30,6 +31,7 @@
         </div>
       </div>
     </div>
+
     <div class="footer">
       <div class="footer-tab">
         <img src="img/keyword-blind.png">
