@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body class="popup-wrapper">
@@ -17,14 +18,31 @@
       </label>
     </div>
     <div class="core">
-      it's core!
+      <div class="tab-wrapper" id="tab-keyword-list">
+        <div class="search-wrapper">
+          <div class="search">
+            <input type="text" placeholder="Enter keyword" name="keyword-searcher">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+        <div class="chips-wrapper">
+          chips
+        </div>
+      </div>
     </div>
     <div class="footer">
       <div class="footer-tab">
         <img src="img/keyword-blind.png">
-      </div>
+        <div class="footer-tab-title">
+          Keywords
+        </div>
+      </div> 
       <div class="footer-tab">
         <img src="img/user-blind.png">
+        <div class="footer-tab-title">
+          User <br>
+          Blacklist
+        </div>
       </div>
     </div>
   </div>

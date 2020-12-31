@@ -52,6 +52,12 @@
     height: 20px;
 
     border-radius: 10px;
+    
+    transition: .4s;
+}
+
+.header .toggle-btn:hover {
+    filter: brightness(110%);
 }
 
 .toggle-btn.btn-on {
@@ -119,6 +125,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.footer-tab-title {
+    padding-left: 5px;
+    font-weight: bold;
+    user-select: none;
 }
 
 .footer-tab img {
