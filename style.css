@@ -113,6 +113,53 @@ input[id="on_off_btn"]:checked + label:before {
     height: 300px;
 }
 
+.tab-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.search-wrapper {
+    height: 15%;
+    margin: 5px 15px 5px 10px;
+
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    width: 100%;
+}
+
+.search-bar input[type=text] {
+    width: 100%;
+    height: 30px;
+
+    font-size: 16px;
+    border-radius: 16px;
+}
+
+.chips-wrapper {
+    height: 85%;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    margin: 5px 15px 5px 10px;
+}
+
+.chip {
+    margin: 3px;
+    padding: 8px;
+
+    border-radius: 16px;
+
+    color: white;
+    background: black;
+}
+
 /* Footer */
 .footer {
     height: 50px;
