@@ -21,7 +21,7 @@
     padding-bottom: 10px;
 
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     align-items: center;
 
     font-size: 20px;
@@ -30,6 +30,10 @@
     user-select: none;
 
     border-bottom: 1px solid rgba(0,0,0,.06);
+
+    background-image: url('img/banner.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .header img {
@@ -43,6 +47,7 @@
     height: 20px;
     color: #fff;
     transition: .2s;
+
 }
 
 .on_off_box:hover {
@@ -75,6 +80,8 @@
     position: relative;
     vertical-align: top;
     background-color: #5f647b;
+
+    box-shadow: 0 0 8px black;
 }
 
 /* pseudo checkbox shape*/
@@ -120,22 +127,27 @@ input[id="on_off_btn"]:checked + label:before {
 
 .search-wrapper {
     height: 15%;
-    margin: 5px 15px 5px 10px;
-
-    display: flex;
-    align-items: center;
+    margin: 5px 10px 5px 10px;
 }
 
 .search-bar {
     width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .search-bar input[type=text] {
-    width: 100%;
+    width: 250px;
     height: 30px;
+
+    padding: 0 10px 0 10px;
 
     font-size: 16px;
     border-radius: 16px;
+
+    outline: none;
 }
 
 .chips-wrapper {
