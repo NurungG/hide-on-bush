@@ -97,7 +97,7 @@ document.querySelector("input[name=keyword-searcher]").addEventListener('keyup',
 
         let childs = chipsPlate.querySelectorAll(".chip");
         console.log(childs);
-        for (let i = 1; i < childs.length; i++) {
+        for (let i = 0; i < childs.length; i++) {
             chipsPlate.removeChild(childs[i]);
         }
 
@@ -135,7 +135,7 @@ document.querySelector(".chip.add-btn").addEventListener('click', function(event
     /* TODO!! */
     console.log("TODO");
 
-    if (flag) return;
+    /* if (flag) return;
     
     $("#add-icon").css('display', 'none');
     $(".chip.add-btn").append('<input type="text" id="new-keyword" name="new-keyword">');
@@ -148,21 +148,5 @@ document.querySelector(".chip.add-btn").addEventListener('click', function(event
         $("#new-keyword").css('width', inputWidth);
 
         $("#virtual-dom").remove();
-    });
-
-    /* let addBtn = $(event.target);
-
-    addBtn.empty();
-    addBtn.append('<input type="text" id="new-keyword">');
-
-    $("#new-keyword").on('keydown', function(event) {
-        let value = $("#new-keyword").val();
-
-        addBtn.append('<div id="virtual-dom">' + value + '</div');
-
-        let inputWidth = $("#virtual-dom").width() + 10;
-
-        $("#new-keyword").css('width', inputWidth);
-        $('#virtual-dom').remove();
     }); */
 });
