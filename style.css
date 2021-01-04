@@ -133,10 +133,66 @@ input[id="on_off_btn"]:checked + label:before {
 .search-bar input[type=text] {
     width: 100%;
     height: 30px;
-
+    outline: none;
     font-size: 16px;
+    padding-left: 10px;
     border-radius: 16px;
 }
+
+/* new code start */
+.add_chips_back {
+    background: transparent;
+}
+
+.add_form_field {
+    transition: 0.3s;
+    position: relative;
+}
+
+.add_form_field i {
+    transition: all 0.3s ease-in;
+    color: white;
+    position: absolute;
+    transform: translateY(-50%);
+    left: 11px;
+    top: 50%;
+}
+
+.add_form_field input {
+    outline: none;
+    transition: all 0.3s ease-in;
+    background: #8bcb9a;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 5px 20px 5px 10px;
+    color: white;
+    width: 0;
+}
+
+.add_form_field.active {
+    transition: all 0.3s ease-in;
+}
+
+.add_form_field.active i {
+    color: #8bcb9a;
+    display: block;
+    transform: translateX(150px) translateY(-50%) rotate(-45deg) ;
+}
+
+.add_form_field.active input {
+    background: white;
+    border-color: #8bcb9a;
+    color: black;
+    width: 150px;
+}
+
+.add_form_field i:hover {
+    cursor: pointer;
+}
+.add_form_field:hover {
+    filter: brightness(105%);
+}
+/* new code end */
 
 .chips-wrapper {
     height: 85%;

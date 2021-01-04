@@ -11,6 +11,31 @@ on_off_btn.addEventListener('change', function() {
     }
 })
 
+// new code start
+$(".add_form_field").on('mousedown', function(e) {
+    $(this).toggleClass('active');
+})
+
+$(".add_form_field").on('mouseup', function(e) {
+    $(this).children('input').focus()
+    if (!$(this).hasClass('active')) {
+        $(this).children('input').blur()
+    }
+})
+
+$(".add_form_field input").on('focus', function(e) {
+    if (!$(this).parent().hasClass('active')) {
+        $(this).blur()
+    }
+})
+
+$(".add_form_field input").on('blur', function(e) {
+    $(this).val('');
+    $(this).parent().removeClass('active')
+})
+// new code end
+
+
 // footer tab click event
 let footer_tab = document.getElementsByClassName("footer-tab");
 console.log(footer_tab);
