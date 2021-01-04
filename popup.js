@@ -70,13 +70,16 @@ document.querySelector("input[name=keyword-searcher]").addEventListener('keyup',
             return;
         }
 
-        chipsPlate.innerHTML = "";
+        let childs = chipsPlate.querySelectorAll(".chip");
+        console.log(childs);
+        for (let i = 1; i < childs.length; i++) {
+            chipsPlate.removeChild(childs[i]);
+        }
 
         if (keywords.length === matchedKeywords.length) {
-            let node = document.createElement("div");
-            node.setAttribute("class", "chip add-btn");
-            node.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i>';
-            chipsPlate.appendChild(node);
+            document.getElementById("chip-add-btn").style.display = "block";
+        } else {
+            document.getElementById("chip-add-btn").style.display = "none";
         }
 
         for (let i = 0; i < matchedKeywords.length; i++) {
@@ -99,4 +102,42 @@ chrome.storage.sync.get(['wordList'], function(data) {
         node.setAttribute("class", "chip");
         chipsPlate.appendChild(node);
     }
+});
+
+// Add button event
+flag = false;
+document.querySelector(".chip.add-btn").addEventListener('click', function(event) {
+    /* TODO!! */
+    console.log("TODO");
+
+    if (flag) return;
+    
+    $("#add-icon").css('display', 'none');
+    $(".chip.add-btn").append('<input type="text" id="new-keyword" name="new-keyword">');
+
+    $("#new-keyword").on('keydown', function(event) {
+        let value = $("#new-keyword").val();
+
+        $(".chip.add-btn").append('<div id="virtual-dom">'+value+'</div>');
+        let inputWidth = $("#virtual-dom").width() + 10;
+        $("#new-keyword").css('width', inputWidth);
+
+        $("#virtual-dom").remove();
+    });
+
+    /* let addBtn = $(event.target);
+
+    addBtn.empty();
+    addBtn.append('<input type="text" id="new-keyword">');
+
+    $("#new-keyword").on('keydown', function(event) {
+        let value = $("#new-keyword").val();
+
+        addBtn.append('<div id="virtual-dom">' + value + '</div');
+
+        let inputWidth = $("#virtual-dom").width() + 10;
+
+        $("#new-keyword").css('width', inputWidth);
+        $('#virtual-dom').remove();
+    }); */
 });
