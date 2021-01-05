@@ -23,7 +23,7 @@ onoffBtn.addEventListener('change', function() {
     toggleBtn(this);
 });
 
-// new code start
+// add chips btn click event
 $(".add_form_field").on('mousedown', function(e) {
     $(this).toggleClass('active');
 })
@@ -45,7 +45,12 @@ $(".add_form_field input").on('blur', function(e) {
     $(this).val('');
     $(this).parent().removeClass('active')
 })
-// new code end
+
+$(".add_form_field input").keypress(function(event) {
+    if(event.keyCode === 13) {
+        console.log('aa')
+    }
+})
 
 
 // footer tab click event
@@ -136,7 +141,7 @@ document.querySelector(".chip.add-btn").addEventListener('click', function(event
     console.log("TODO");
 
     /* if (flag) return;
-    
+
     $("#add-icon").css('display', 'none');
     $(".chip.add-btn").append('<input type="text" id="new-keyword" name="new-keyword">');
 

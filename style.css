@@ -114,6 +114,7 @@ input[id="onoff-btn"]:checked + label:before {
 
 /* Core */
 .core {
+    background: #e8f4eb;  /* modified by hwichance */
     height: 300px;
 }
 
@@ -124,8 +125,8 @@ input[id="onoff-btn"]:checked + label:before {
 
 .search-wrapper {
     height: 40px;
-    margin: 5px 10px 5px 10px;
-
+    margin: 0 10px 0 10px;
+    padding-top: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -140,17 +141,17 @@ input[id="onoff-btn"]:checked + label:before {
 }
 
 .search-bar input[type=text] {
-    width: 250px;
+    width: 100%;    /* modified by hwichance */
     height: 30px;
     padding: 0 10px 0 10px;
     font-size: 16px;
-    padding-left: 10px;
-    border-radius: 16px;
-
+    border-radius: 10px;    /* modified by hwichance */
+    border: 1px solid white;    /* modified by hwichance */
+    box-shadow: 0 0 10px #8bcb9a;   /* modified by hwichance */
     outline: none;
 }
 
-/* new code start */
+/* add chips btn */
 .add_chips_back {
     background: transparent;
 }
@@ -158,6 +159,7 @@ input[id="onoff-btn"]:checked + label:before {
 .add_form_field {
     transition: 0.3s;
     position: relative;
+    margin: 3px;
 }
 
 .add_form_field i {
@@ -203,19 +205,21 @@ input[id="onoff-btn"]:checked + label:before {
 .add_form_field:hover {
     filter: brightness(105%);
 }
-/* new code end */
 
 .chips-wrapper {
-    height: 250px;
+    height: 225px;
 
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
+    justify-content: left;  /* modified by hwichance */
     align-items: flex-start;
     align-content: flex-start;
     overflow-y: auto;
-
-    padding: 5px 10px 0px 10px;
+    background: white;  /* modified by hwichance */
+    padding: 5px 5px 5px 5px;   /* modified by hwichance */
+    margin: 10px 10px 10px 10px;    /* modified by hwichance */
+    border-radius: 10px;    /* modified by hwichance */
+    box-shadow: 0 0 10px #8bcb9a;  /* modified by hwichance */
 }
 
 .chips-wrapper::-webkit-scrollbar {
@@ -230,12 +234,11 @@ input[id="onoff-btn"]:checked + label:before {
 
 .chip {
     margin: 3px;
-    padding: 8px 11px 8px 11px;
-
-    border-radius: 16px;
-
-    color: white;
-    background: black;
+    padding: 5px 10px 5px 10px; /* modified by hwichance */
+    border-radius: 10px; /* modified by hwichance */
+    border: 1px solid white; /* modified by hwichance */
+    color: #418f53; /* modified by hwichance */
+    background: #e8f4eb; /* modified by hwichance */
 }
 
 .chip.add-btn {
