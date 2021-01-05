@@ -141,7 +141,7 @@ input[id="onoff-btn"]:checked + label:before {
 }
 
 .search-bar input[type=text] {
-    width: 100%
+    width: 100%;
     height: 30px;
     padding: 0 10px 0 10px;
     font-size: 16px;
@@ -202,6 +202,15 @@ input[id="onoff-btn"]:checked + label:before {
 .add_form_field i:hover {
     cursor: pointer;
 }
+
+.add_form_field input:hover {
+    cursor: pointer;
+}
+
+.add_form_field.active input:hover {
+    cursor:text;
+}
+
 .add_form_field:hover {
     filter: brightness(105%);
 }

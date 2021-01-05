@@ -65,11 +65,13 @@ $(".add_form_field input").on('blur', function(e) {
     $(this).parent().removeClass('active')
 })
 
-$(".add_form_field input").keypress(function(event) {
+$(".add_form_field input").keypress(function(e) {
     if(event.keyCode === 13) {
-        console.log('aa')
+        e.preventDefault();
+        $(this).blur()
     }
 })
+
 
 
 // footer tab click event
