@@ -6,11 +6,6 @@ chrome.runtime.onInstalled.addListener(function() {
 
 chrome.storage.sync.set({onoff: false});
 
-chrome.storage.sync.set({wordList: ["hi", "hello", "jinwook bae", "hwichance ji", "idontwannasee", "text blind"]}, function() {
+chrome.storage.sync.set({'keywordList': ["hi", "hello", "jinwook bae", "hwichance ji", "idontwannasee", "text blind"]}, function() {
     console.log("value set");
-});
-
-chrome.storage.sync.get(['wordList'], function(data) {
-    keywords = data.wordList;
-    console.log(keywords);
 });

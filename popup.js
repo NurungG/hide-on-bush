@@ -1,27 +1,46 @@
-// onoff toggle button click event
+var keywordList;
+
+// Popup load
+document.addEventListener('DOMContentLoaded', function(e) {
+    // get onoff status
+    chrome.storage.sync.get(['onoff'], function(d) {
+        let onoffBtn = document.querySelector("#onoff-btn");
+        onoffBtn.checked = d.onoff;
+        toggleBtn(onoffBtn);
+
+        onoffBtn.addEventListener('change', function(e) {
+            toggleBtn(this);
+        });
+    });
+
+    // get keyword list
+    chrome.storage.sync.get(['keywordList'], function(d) {
+        keywordList = new Set(d.keywordList);
+
+        let chipsPlate = document.getElementById("keyword-chips");
+        for (let keyword of keywordList) {
+            let node = document.createElement("div");
+            node.appendChild(document.createTextNode(keyword));
+            node.setAttribute("class", "chip");
+            chipsPlate.appendChild(node);
+        }
+    })
+
+    console.log("loaded");
+});
+
 function toggleBtn(btn) {
     let onoffText = document.getElementById("onoff-text");
     if (btn.checked) {
         onoffText.setAttribute("class", "onoff-text-on")
         onoffText.innerHTML = "ON";
-        chrome.storage.sync.set({"onoff": true});
+        chrome.storage.sync.set({'onoff': true});
     } else {
         onoffText.setAttribute("class", "onoff-text-off")
         onoffText.innerHTML = "OFF";
-        chrome.storage.sync.set({"onoff": false});
+        chrome.storage.sync.set({'onoff': false});
     }
 };
-
-var onoffBtn = document.querySelector("input[name=onoff-btn]");
-
-chrome.storage.sync.get(['onoff'], function(data) {
-    onoffBtn.checked = data.onoff;
-    toggleBtn(onoffBtn);
-});
-
-onoffBtn.addEventListener('change', function() {
-    toggleBtn(this);
-});
 
 // new code start
 $(".add_form_field").on('mousedown', function(e) {
@@ -69,7 +88,6 @@ function arraysEqual(arr1, arr2) {
 }
 
 // Search bar keyup event
-let keywords = [];
 let prevKeyword = "";
 let prevSearched = [];
 document.querySelector("input[name=keyword-searcher]").addEventListener('keyup', function(event) {
@@ -82,71 +100,39 @@ document.querySelector("input[name=keyword-searcher]").addEventListener('keyup',
     let chipsPlate = document.getElementById("keyword-chips");
 
     let matchedKeywords = [];
-    chrome.storage.sync.get(['wordList'], function(data) {
-        keywords = data.wordList;
 
-        for (let i = 0; i < keywords.length; i++) {
-            if (keywords[i].match(searchString)) {
-                matchedKeywords.push(keywords[i]);
-            }
+    // find matched keywords
+    for (let keyword of keywordList) {
+        if (keyword.match(searchString)) {
+            matchedKeywords.push(keyword);
         }
+    }
 
-        if (arraysEqual(prevSearched, matchedKeywords)) {
-            return;
-        }
+    // if completely equal, skip it
+    if (arraysEqual(prevSearched, matchedKeywords)) {
+        return;
+    }
 
-        let childs = chipsPlate.querySelectorAll(".chip");
-        console.log(childs);
-        for (let i = 0; i < childs.length; i++) {
-            chipsPlate.removeChild(childs[i]);
-        }
+    // remove chips
+    let childs = chipsPlate.querySelectorAll(".chip");
+    for (let i = 0; i < childs.length; i++) {
+        chipsPlate.removeChild(childs[i]);
+    }
 
-        if (keywords.length === matchedKeywords.length) {
-            document.getElementById("chip-add-btn").style.display = "block";
-        } else {
-            document.getElementById("chip-add-btn").style.display = "none";
-        }
+    // show or hide add button
+    if (keywordList.size === matchedKeywords.length) {
+        document.getElementById("chip-add-btn").style.display = "block";
+    } else {
+        document.getElementById("chip-add-btn").style.display = "none";
+    }
 
-        for (let i = 0; i < matchedKeywords.length; i++) {
-            let node = document.createElement("div");
-            node.appendChild(document.createTextNode(matchedKeywords[i]));
-            node.setAttribute("class", "chip");
-            chipsPlate.appendChild(node);
-        }
-
-        prevSearched = matchedKeywords;
-    });
-});
-
-chrome.storage.sync.get(['wordList'], function(data) {
-    let keywords = data.wordList;
-    let chipsPlate = document.getElementById("keyword-chips");
-    for (let i = 0; i < keywords.length; i++) {
+    // re-generate chips
+    for (let i = 0; i < matchedKeywords.length; i++) {
         let node = document.createElement("div");
-        node.appendChild(document.createTextNode(keywords[i]));
+        node.appendChild(document.createTextNode(matchedKeywords[i]));
         node.setAttribute("class", "chip");
         chipsPlate.appendChild(node);
     }
-});
 
-// Add button event
-flag = false;
-document.querySelector(".chip.add-btn").addEventListener('click', function(event) {
-    /* TODO!! */
-    console.log("TODO");
-
-    /* if (flag) return;
-    
-    $("#add-icon").css('display', 'none');
-    $(".chip.add-btn").append('<input type="text" id="new-keyword" name="new-keyword">');
-
-    $("#new-keyword").on('keydown', function(event) {
-        let value = $("#new-keyword").val();
-
-        $(".chip.add-btn").append('<div id="virtual-dom">'+value+'</div>');
-        let inputWidth = $("#virtual-dom").width() + 10;
-        $("#new-keyword").css('width', inputWidth);
-
-        $("#virtual-dom").remove();
-    }); */
+    prevSearched = matchedKeywords;
 });
