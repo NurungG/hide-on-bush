@@ -114,7 +114,7 @@ input[id="onoff-btn"]:checked + label:before {
 
 /* Core */
 .core {
-    background: #e8f4eb;  /* modified by hwichance */
+    background: #e8f4eb;
     height: 300px;
 }
 
@@ -141,13 +141,13 @@ input[id="onoff-btn"]:checked + label:before {
 }
 
 .search-bar input[type=text] {
-    width: 100%;    /* modified by hwichance */
+    width: 100%
     height: 30px;
     padding: 0 10px 0 10px;
     font-size: 16px;
-    border-radius: 10px;    /* modified by hwichance */
-    border: 1px solid white;    /* modified by hwichance */
-    box-shadow: 0 0 10px #8bcb9a;   /* modified by hwichance */
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: 0 0 10px #8bcb9a;
     outline: none;
 }
 
@@ -211,15 +211,15 @@ input[id="onoff-btn"]:checked + label:before {
 
     display: flex;
     flex-flow: row wrap;
-    justify-content: left;  /* modified by hwichance */
+    justify-content: left;
     align-items: flex-start;
     align-content: flex-start;
     overflow-y: auto;
-    background: white;  /* modified by hwichance */
-    padding: 5px 5px 5px 5px;   /* modified by hwichance */
-    margin: 10px 10px 10px 10px;    /* modified by hwichance */
-    border-radius: 10px;    /* modified by hwichance */
-    box-shadow: 0 0 10px #8bcb9a;  /* modified by hwichance */
+    background: white;
+    padding: 5px 5px 5px 5px;
+    margin: 10px 10px 10px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #8bcb9a;
 }
 
 .chips-wrapper::-webkit-scrollbar {
@@ -234,11 +234,11 @@ input[id="onoff-btn"]:checked + label:before {
 
 .chip {
     margin: 3px;
-    padding: 5px 10px 5px 10px; /* modified by hwichance */
-    border-radius: 10px; /* modified by hwichance */
-    border: 1px solid white; /* modified by hwichance */
-    color: #418f53; /* modified by hwichance */
-    background: #e8f4eb; /* modified by hwichance */
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    border: 1px solid white;
+    color: #418f53;
+    background: #e8f4eb;
 }
 
 .chip.add-btn {
