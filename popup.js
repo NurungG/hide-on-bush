@@ -1,5 +1,5 @@
 var keywordList;
-
+var chipsPlate;
 // Popup load
 document.addEventListener('DOMContentLoaded', function(e) {
     // get onoff status
@@ -16,17 +16,16 @@ document.addEventListener('DOMContentLoaded', function(e) {
     // get keyword list
     chrome.storage.sync.get(['keywordList'], function(d) {
         keywordList = new Set(d.keywordList);
-
-        let chipsPlate = document.getElementById("keyword-chips");
+        chipsPlate = document.getElementById("keyword-chips");
         for (let keyword of keywordList) {
-            let node = document.createElement("div");
-            node.appendChild(document.createTextNode(keyword));
+            let node = document.createElement("button");
+            node.addEventListener('click', chipsClickListener);
+            node.innerText = keyword;
             node.setAttribute("class", "chip");
+
             chipsPlate.appendChild(node);
         }
     })
-
-    console.log("loaded");
 });
 
 function toggleBtn(btn) {
@@ -41,6 +40,12 @@ function toggleBtn(btn) {
         chrome.storage.sync.set({'onoff': false});
     }
 };
+
+function chipsClickListener(e) {
+    keywordList.delete($(this).text());
+    chipsPlate.removeChild(this);
+    saveChangesAtStorage();
+}
 
 // add chips btn click event
 $(".add_form_field").on('mousedown', function(e) {
@@ -68,11 +73,31 @@ $(".add_form_field input").on('blur', function(e) {
 $(".add_form_field input").keypress(function(e) {
     if(event.keyCode === 13) {
         e.preventDefault();
-        $(this).blur()
+        let newKeyword = $(this).val();
+        addNewKeyword(newKeyword);
+        $(this).blur();
     }
 })
 
+function addNewKeyword(newKeyword) {
+    if(keywordList.has(newKeyword)) {
+        alert('Keyword already added');
+    } else {
+        keywordList.add(newKeyword);
+        let node = document.createElement("button");
+        node.addEventListener('click', chipsClickListener);
+        node.innerText = newKeyword;
+        node.setAttribute("class", "chip");
+        chipsPlate.appendChild(node);
+        saveChangesAtStorage();
+    }
+}
 
+function saveChangesAtStorage() {
+    chrome.storage.sync.set({'keywordList': Array.from(keywordList)}, function() {
+        console.log("Changes saved");
+    });
+}
 
 // footer tab click event
 let footer_tab = document.getElementsByClassName("footer-tab");
@@ -104,8 +129,6 @@ document.querySelector("input[name=keyword-searcher]").addEventListener('keyup',
     }
     prevKeyword = searchString;
 
-    let chipsPlate = document.getElementById("keyword-chips");
-
     let matchedKeywords = [];
 
     // find matched keywords
@@ -135,9 +158,11 @@ document.querySelector("input[name=keyword-searcher]").addEventListener('keyup',
 
     // re-generate chips
     for (let i = 0; i < matchedKeywords.length; i++) {
-        let node = document.createElement("div");
-        node.appendChild(document.createTextNode(matchedKeywords[i]));
+        let node = document.createElement("button");
+        node.addEventListener('click', chipsClickListener);
+        node.innerText = matchedKeywords[i];
         node.setAttribute("class", "chip");
+
         chipsPlate.appendChild(node);
     }
 

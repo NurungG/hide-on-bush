@@ -189,14 +189,14 @@ input[id="onoff-btn"]:checked + label:before {
 .add_form_field.active i {
     color: #8bcb9a;
     display: block;
-    transform: translateX(150px) translateY(-50%) rotate(-45deg) ;
+    transform: translateX(120px) translateY(-50%) rotate(-45deg) ;
 }
 
 .add_form_field.active input {
     background: white;
     border-color: #8bcb9a;
     color: black;
-    width: 150px;
+    width: 120px;
 }
 
 .add_form_field i:hover {
@@ -242,16 +242,39 @@ input[id="onoff-btn"]:checked + label:before {
 }
 
 .chip {
+    position: relative;
     margin: 3px;
     padding: 5px 10px 5px 10px;
-    border-radius: 10px;
+    outline: none;
     border: 1px solid white;
+    border-radius: 10px;
     color: #418f53;
     background: #e8f4eb;
+    cursor: pointer;
 }
 
-.chip.add-btn {
-    cursor: pointer;
+.chip::after {
+    content: "X";
+    color:white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #cb3d39;
+    border-radius: 10px;
+    z-index: 1;
+    transform: scale(0, 1);
+    transform-origin: 50% 0%;
+    transition: transform 0.35s;
+    opacity: 0.8;
+}
+
+.chip:hover::after {
+    transform: scale(1, 1);
 }
 
 /* Footer */
