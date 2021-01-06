@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
             node.setAttribute("class", "chip");
             chipsPlate.appendChild(node);
         }
-    })
+    });
 
     console.log("loaded");
 });
