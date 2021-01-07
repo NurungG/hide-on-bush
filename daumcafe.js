@@ -23,6 +23,27 @@ function keywordMatch(str, keywordList) {
     return false;
 }
 
+function blurItems(items, authors, keywordList) {
+    if (items.length !== authors.length) {
+        console.log("error!! array length not same");
+        return;
+    }
+    for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const author = authors[i];
+
+        item.style.transition = ".5s";
+        author.style.transition = ".5s";
+        if (keywordMatch(item.innerText, keywordList)) {
+            item.classList.add('hidden-keyword');
+            author.classList.add('hidden-keyword');
+        } else {
+            item.classList.remove('hidden-keyword');
+            author.classList.remove('hidden-keyword');
+        }
+    }
+}
+
 function blurContent(keywordList) {
     const ifDocument = document.querySelector('iframe').contentDocument;
 
@@ -39,17 +60,15 @@ function blurContent(keywordList) {
         ifDocument.querySelector('head').appendChild(hiddenKeywordCss);
     }
 
-    // add class to matched content (title)
-    const titles = ifDocument.querySelectorAll(".td_title .txt_item");
+    // add class to matched content (posts)
+    const postTitles = ifDocument.querySelectorAll(".td_title .txt_item");
+    const postAuthors = ifDocument.querySelectorAll(".td_writer .txt_writer");
+    blurItems(postTitles, postAuthors, keywordList);
 
-    for (let item of titles) {
-        item.style.transition = ".5s";
-        if (keywordMatch(item.innerText, keywordList)) {
-            item.classList.add('hidden-keyword');
-        } else {
-            item.classList.remove('hidden-keyword');
-        }
-    }
+    // (comments)
+    const comments = ifDocument.querySelectorAll(".comment_post .original_comment");
+    const commentAuthors = ifDocument.querySelectorAll(".comment_post .txt_name");
+    blurItems(comments, commentAuthors, keywordList);
 }
 
 function unblurContent() {
