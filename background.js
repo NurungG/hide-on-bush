@@ -1,15 +1,14 @@
 chrome.runtime.onInstalled.addListener(function() {
-    chrome.storage.sync.set({color: '#3aa757'}, function() {
-        console.log("The color is green.");
+    /* Init the extension */
+    chrome.storage.sync.set({'onoff':false});
+    chrome.storage.sync.set({'keywordList':['Hi!', 'This is Hide-on-bush', 'We love Faker']});
+    chrome.storage.sync.set({'userBlackList':['Faker', 'Hide on bush', 'T1 Faker']});
+});
+
+chrome.webNavigation.onCompleted.addListener(function(e) {
+    chrome.storage.sync.get(null, function(d) { // null: get all data
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {'op': 'page-load', 'data': d});
+        });
     });
-});
-
-chrome.storage.sync.set({onoff: false});
-
-chrome.storage.sync.set({'keywordList': ["hi", "hello", "idontwannasee", "text blind"]}, function() {
-    console.log("value set");
-});
-
-chrome.storage.sync.set({'userBlackList': ["jinwook bae", "hwichance ji", "hwichance", "nurungg"]}, function() {
-    console.log("value set");
 });
