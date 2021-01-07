@@ -1,7 +1,7 @@
 {
-  "name": "idontwannasee",
+  "name": "Hide on bush",
   "version": "1.0",
-  "description": "Let's block hating keywords!",
+  "description": "Let's hide hating content!",
   "permissions": ["webNavigation", "activeTab", "storage"],
   "background": {
     "scripts": ["background.js"],
