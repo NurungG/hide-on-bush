@@ -1,8 +1,16 @@
 chrome.runtime.onInstalled.addListener(function() {
     /* Init the extension */
     chrome.storage.sync.set({'onoff':false});
-    chrome.storage.sync.set({'keywordList':['Hi!', 'This is Hide-on-bush', 'We love Faker']});
-    chrome.storage.sync.set({'userBlackList':['Faker', 'Hide on bush', 'T1 Faker']});
+    chrome.storage.sync.get(['keywordList'], function(d) {
+        if (!d.keywordList) {
+            chrome.storage.sync.set({'keywordList':['Hi!', 'This is Hide-on-bush', 'We love Faker']});
+        }
+    });
+    chrome.storage.sync.get(['userList'], function(d) {
+        if (!d.userList) {
+            chrome.storage.sync.set({'userList':['Faker', 'Hide on bush', 'T1 Faker']});
+        }
+    });
 });
 
 chrome.webNavigation.onCompleted.addListener(function(e) {

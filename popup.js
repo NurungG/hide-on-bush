@@ -1,5 +1,5 @@
 var keywordList;
-var userBlackList;
+var userList;
 var chipsPlate;
 var mode = 0;
 // Popup load
@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
     })
 
     // get user Blacklist
-    chrome.storage.sync.get(['userBlackList'], function(d) {
-        userBlackList = new Set(d.userBlackList);
+    chrome.storage.sync.get(['userList'], function(d) {
+        userList = new Set(d.userList);
     })
 });
 
@@ -55,7 +55,7 @@ function chipsClickListener(e) {
     if (mode == 0) {
         keywordList.delete($(this).text());
     } else {
-        userBlackList.delete($(this).text());
+        userList.delete($(this).text());
     }
     chipsPlate.removeChild(this);
     saveChangesAtStorage();
@@ -110,7 +110,7 @@ $("input:radio[name=tabs]").click(function(){
             removeAllChips();
             resetSearchBar();
             document.getElementById("chip-add-btn").style.display = "block";
-            setInitialChips(userBlackList);
+            setInitialChips(userList);
         }
     }
 });
@@ -123,7 +123,7 @@ $("#clear-btn").click(function(){
         setInitialChips(keywordList);
     } else {
         removeAllChips();
-        setInitialChips(userBlackList);
+        setInitialChips(userList);
     }
 });
 
@@ -155,10 +155,10 @@ function addNewKeyword(newKeyword) {
             sendMsgToContent('keyword-add');
         }
     } else {
-        if (userBlackList.has(newKeyword)) {
+        if (userList.has(newKeyword)) {
             alert('User already added');
         } else {
-            userBlackList.add(newKeyword);
+            userList.add(newKeyword);
             let node = document.createElement("button");
             node.addEventListener('click', chipsClickListener);
             node.innerText = newKeyword;
@@ -177,8 +177,8 @@ function saveChangesAtStorage() {
             console.log("Changes saved at keywordList");
         });
     } else {
-        chrome.storage.sync.set({'userBlackList': Array.from(userBlackList)}, function() {
-            console.log("Changes saved at userBlackList");
+        chrome.storage.sync.set({'userList': Array.from(userList)}, function() {
+            console.log("Changes saved at userList");
         });
     }
 }
@@ -228,7 +228,7 @@ document.querySelector("input[name=keyword-searcher]").addEventListener('keyup',
             }
         }
     } else {
-        for (let user of userBlackList) {
+        for (let user of userList) {
             if (user.match(searchString)) {
                 matchedKeywords.push(user);
             }
@@ -251,7 +251,7 @@ document.querySelector("input[name=keyword-searcher]").addEventListener('keyup',
             document.getElementById("chip-add-btn").style.display = "none";
         }
     } else {
-        if (userBlackList.size === matchedKeywords.length) {
+        if (userList.size === matchedKeywords.length) {
             document.getElementById("chip-add-btn").style.display = "block";
         } else {
             document.getElementById("chip-add-btn").style.display = "none";
