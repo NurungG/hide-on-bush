@@ -1,5 +1,6 @@
 var keywordList;
 var chipsPlate;
+
 // Popup load
 document.addEventListener('DOMContentLoaded', function(e) {
     // get onoff status
@@ -28,16 +29,27 @@ document.addEventListener('DOMContentLoaded', function(e) {
     })
 });
 
+function sendMsgToContent(op) {
+    chrome.storage.sync.get(null, function(d) {
+        console.log(d);
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {'op': op, 'data': d});
+        });
+    });
+}
+
 function toggleBtn(btn) {
     let onoffText = document.getElementById("onoff-text");
     if (btn.checked) {
         onoffText.setAttribute("class", "onoff-text-on")
         onoffText.innerHTML = "ON";
         chrome.storage.sync.set({'onoff': true});
+        sendMsgToContent('switch-on');
     } else {
         onoffText.setAttribute("class", "onoff-text-off")
         onoffText.innerHTML = "OFF";
         chrome.storage.sync.set({'onoff': false});
+        sendMsgToContent('switch-off');
     }
 };
 
@@ -90,6 +102,7 @@ function addNewKeyword(newKeyword) {
         node.setAttribute("class", "chip");
         chipsPlate.appendChild(node);
         saveChangesAtStorage();
+        sendMsgToContent('keyword-add');
     }
 }
 
