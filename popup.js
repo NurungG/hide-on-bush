@@ -57,6 +57,7 @@ function chipsClickListener(e) {
     keywordList.delete($(this).text());
     chipsPlate.removeChild(this);
     saveChangesAtStorage();
+    sendMsgToContent('keyword-delete');
 }
 
 // add chips btn click event
