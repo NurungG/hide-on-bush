@@ -1,5 +1,7 @@
 var keywordList;
+var userBlackList;
 var chipsPlate;
+var mode = 0;
 // Popup load
 document.addEventListener('DOMContentLoaded', function(e) {
     // get onoff status
@@ -16,15 +18,12 @@ document.addEventListener('DOMContentLoaded', function(e) {
     // get keyword list
     chrome.storage.sync.get(['keywordList'], function(d) {
         keywordList = new Set(d.keywordList);
-        chipsPlate = document.getElementById("keyword-chips");
-        for (let keyword of keywordList) {
-            let node = document.createElement("button");
-            node.addEventListener('click', chipsClickListener);
-            node.innerText = keyword;
-            node.setAttribute("class", "chip");
+        setInitialChips(keywordList);
+    })
 
-            chipsPlate.appendChild(node);
-        }
+    // get user Blacklist
+    chrome.storage.sync.get(['userBlackList'], function(d) {
+        userBlackList = new Set(d.userBlackList);
     })
 });
 
@@ -42,7 +41,11 @@ function toggleBtn(btn) {
 };
 
 function chipsClickListener(e) {
-    keywordList.delete($(this).text());
+    if (mode == 0) {
+        keywordList.delete($(this).text());
+    } else {
+        userBlackList.delete($(this).text());
+    }
     chipsPlate.removeChild(this);
     saveChangesAtStorage();
 }
@@ -79,32 +82,88 @@ $(".add_form_field input").keypress(function(e) {
     }
 })
 
-function addNewKeyword(newKeyword) {
-    if(keywordList.has(newKeyword)) {
-        alert('Keyword already added');
+// radio button click event
+$("input:radio[name=tabs]").click(function(){
+    if($("input:radio[name=tabs]:checked").val() === 'keyword-tab') {
+        if(mode == 1){
+            mode = 0;
+            removeAllChips();
+            resetSearchBar();
+            document.getElementById("chip-add-btn").style.display = "block";
+            setInitialChips(keywordList);
+        }
     } else {
-        keywordList.add(newKeyword);
+        if(mode == 0){
+            mode = 1;
+            removeAllChips();
+            resetSearchBar();
+            document.getElementById("chip-add-btn").style.display = "block";
+            setInitialChips(userBlackList);
+        }
+    }
+});
+
+$("#clear-btn").click(function(){
+    resetSearchBar();
+    document.getElementById("chip-add-btn").style.display = "block";
+    if(mode == 0) {
+        removeAllChips();
+        setInitialChips(keywordList);
+    } else {
+        removeAllChips();
+        setInitialChips(userBlackList);
+    }
+});
+
+function setInitialChips(list) {
+    chipsPlate = document.getElementById("keyword-chips");
+    for (let word of list) {
         let node = document.createElement("button");
         node.addEventListener('click', chipsClickListener);
-        node.innerText = newKeyword;
+        node.innerText = word;
         node.setAttribute("class", "chip");
+
         chipsPlate.appendChild(node);
-        saveChangesAtStorage();
+    }
+}
+
+function addNewKeyword(newKeyword) {
+    if(mode == 0) {
+        if (keywordList.has(newKeyword)) {
+            alert('Keyword already added');
+        } else {
+            keywordList.add(newKeyword);
+            let node = document.createElement("button");
+            node.addEventListener('click', chipsClickListener);
+            node.innerText = newKeyword;
+            node.setAttribute("class", "chip");
+            chipsPlate.appendChild(node);
+            saveChangesAtStorage();
+        }
+    } else {
+        if (userBlackList.has(newKeyword)) {
+            alert('User already added');
+        } else {
+            userBlackList.add(newKeyword);
+            let node = document.createElement("button");
+            node.addEventListener('click', chipsClickListener);
+            node.innerText = newKeyword;
+            node.setAttribute("class", "chip");
+            chipsPlate.appendChild(node);
+            saveChangesAtStorage();
+        }
     }
 }
 
 function saveChangesAtStorage() {
-    chrome.storage.sync.set({'keywordList': Array.from(keywordList)}, function() {
-        console.log("Changes saved");
-    });
-}
-
-// footer tab click event
-let footer_tab = document.getElementsByClassName("footer-tab");
-console.log(footer_tab);
-for (var i = 0; i < footer_tab.length; i++) {
-    footer_tab[i].onclick = function() {
-        /* TODO: load tab page */
+    if (mode == 0){
+        chrome.storage.sync.set({'keywordList': Array.from(keywordList)}, function() {
+            console.log("Changes saved at keywordList");
+        });
+    } else {
+        chrome.storage.sync.set({'userBlackList': Array.from(userBlackList)}, function() {
+            console.log("Changes saved at userBlackList");
+        });
     }
 }
 
@@ -119,10 +178,24 @@ function arraysEqual(arr1, arr2) {
     return true;
 }
 
+function removeAllChips() {
+    let childs = chipsPlate.querySelectorAll(".chip");
+    for (let i = 0; i < childs.length; i++) {
+        chipsPlate.removeChild(childs[i]);
+    }
+}
+
+function resetSearchBar() {
+    document.getElementById("searchBar").value = null;
+    $("#clear-btn").hide();
+}
+
 // Search bar keyup event
 let prevKeyword = "";
 let prevSearched = [];
 document.querySelector("input[name=keyword-searcher]").addEventListener('keyup', function(event) {
+    $("#clear-btn").toggle(Boolean($(this).val()));
+
     let searchString = event.target.value;
     if (prevKeyword === searchString) {
         return;
@@ -132,9 +205,17 @@ document.querySelector("input[name=keyword-searcher]").addEventListener('keyup',
     let matchedKeywords = [];
 
     // find matched keywords
-    for (let keyword of keywordList) {
-        if (keyword.match(searchString)) {
-            matchedKeywords.push(keyword);
+    if (mode == 0) {
+        for (let keyword of keywordList) {
+            if (keyword.match(searchString)) {
+                matchedKeywords.push(keyword);
+            }
+        }
+    } else {
+        for (let user of userBlackList) {
+            if (user.match(searchString)) {
+                matchedKeywords.push(user);
+            }
         }
     }
 
@@ -144,16 +225,21 @@ document.querySelector("input[name=keyword-searcher]").addEventListener('keyup',
     }
 
     // remove chips
-    let childs = chipsPlate.querySelectorAll(".chip");
-    for (let i = 0; i < childs.length; i++) {
-        chipsPlate.removeChild(childs[i]);
-    }
+    removeAllChips()
 
     // show or hide add button
-    if (keywordList.size === matchedKeywords.length) {
-        document.getElementById("chip-add-btn").style.display = "block";
+    if (mode == 0) {
+        if (keywordList.size === matchedKeywords.length) {
+            document.getElementById("chip-add-btn").style.display = "block";
+        } else {
+            document.getElementById("chip-add-btn").style.display = "none";
+        }
     } else {
-        document.getElementById("chip-add-btn").style.display = "none";
+        if (userBlackList.size === matchedKeywords.length) {
+            document.getElementById("chip-add-btn").style.display = "block";
+        } else {
+            document.getElementById("chip-add-btn").style.display = "none";
+        }
     }
 
     // re-generate chips

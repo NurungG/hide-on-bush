@@ -6,6 +6,10 @@ chrome.runtime.onInstalled.addListener(function() {
 
 chrome.storage.sync.set({onoff: false});
 
-chrome.storage.sync.set({'keywordList': ["hi", "hello", "jinwook bae", "hwichance ji", "idontwannasee", "text blind"]}, function() {
+chrome.storage.sync.set({'keywordList': ["hi", "hello", "idontwannasee", "text blind"]}, function() {
+    console.log("value set");
+});
+
+chrome.storage.sync.set({'userBlackList': ["jinwook bae", "hwichance ji", "hwichance", "nurungg"]}, function() {
     console.log("value set");
 });

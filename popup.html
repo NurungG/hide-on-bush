@@ -21,7 +21,8 @@
       <div class="tab-wrapper" id="tab-keyword-list">
         <div class="search-wrapper">
           <div class="search-bar">
-            <input type="text" placeholder="Enter keyword" name="keyword-searcher">
+            <input type="text" placeholder="Search" name="keyword-searcher" id="searchBar" maxlength="8">
+            <i class="fas fa-times-circle" aria-hidden="true" id="clear-btn"></i>
           </div>
         </div>
 
@@ -29,7 +30,7 @@
           <form class="add_chips_back">
             <div class="add_form_field" id="chip-add-btn">
               <i class="fas fa-plus add_chips_icon" aria-hidden="true"></i>
-              <input type="text" name="add_chips_text" class="extand_chips">
+              <input type="text" name="add_chips_text" class="extand_chips" maxlength="8">
             </div>
           </form>
         </div>
@@ -37,19 +38,13 @@
     </div>
 
     <div class="footer">
-      <div class="footer-tab">
-        <img src="img/keyword-blind.png">
-        <div class="footer-tab-title">
-          Keywords
-        </div>
-      </div>
-      <div class="footer-tab">
-        <img src="img/user-blind.png">
-        <div class="footer-tab-title">
-          User <br>
-          Blacklist
-        </div>
-      </div>
+      <input type="radio" name="tabs" id="keyword-tab" value="keyword-tab" checked="checked">
+      <!-- <img src="img/keyword-blind.png"> -->
+      <label for="keyword-tab">Keywords</label>
+
+      <input type="radio" name="tabs" id="user-tab" value="user-tab">
+      <!-- <img src="img/user-blind.png"> -->
+      <label for="user-tab">User Blacklist</label>
     </div>
   </div>
   <script src="popup.js"></script>
