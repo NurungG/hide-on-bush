@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(function(msg) {
         case 'keyword-add':
         case 'keyword-delete':
             if (msg.data.onoff) {
-                blurContent(msg.data.keywordList);
+                blurContent(msg.data.keywordList, msg.data.userList);
             }
             break;
         case 'switch-off':
@@ -23,7 +23,16 @@ function keywordMatch(str, keywordList) {
     return false;
 }
 
-function blurItems(items, authors, keywordList) {
+function userMatch(str, userList) {
+    for (let user of userList) {
+        if (str === user) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function blurItems(items, authors, keywordList, userList) {
     if (items.length !== authors.length) {
         console.log("error!! array length not same");
         return;
@@ -34,7 +43,8 @@ function blurItems(items, authors, keywordList) {
 
         item.style.transition = ".5s";
         author.style.transition = ".5s";
-        if (keywordMatch(item.innerText, keywordList)) {
+        if (keywordMatch(item.innerText, keywordList) ||
+            userMatch(author.innerText, userList)) {
             item.classList.add('hidden-keyword');
             author.classList.add('hidden-keyword');
         } else {
@@ -44,7 +54,7 @@ function blurItems(items, authors, keywordList) {
     }
 }
 
-function blurContent(keywordList) {
+function blurContent(keywordList, userList) {
     const ifDocument = document.querySelector('iframe').contentDocument;
 
     // set css style
@@ -63,12 +73,12 @@ function blurContent(keywordList) {
     // add class to matched content (posts)
     const postTitles = ifDocument.querySelectorAll(".td_title .txt_item");
     const postAuthors = ifDocument.querySelectorAll(".td_writer .txt_writer");
-    blurItems(postTitles, postAuthors, keywordList);
+    blurItems(postTitles, postAuthors, keywordList, userList);
 
     // (comments)
     const comments = ifDocument.querySelectorAll(".comment_post .original_comment");
     const commentAuthors = ifDocument.querySelectorAll(".comment_post .txt_name");
-    blurItems(comments, commentAuthors, keywordList);
+    blurItems(comments, commentAuthors, keywordList, userList);
 }
 
 function unblurContent() {
