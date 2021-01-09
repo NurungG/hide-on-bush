@@ -1,4 +1,5 @@
 chrome.runtime.onMessage.addListener(function(msg) {
+    console.log(msg);
     switch (msg.op) {
         case 'page-load':
         case 'switch-on':
