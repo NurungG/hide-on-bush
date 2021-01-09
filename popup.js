@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
 function sendMsgToContent(op) {
     chrome.storage.sync.get(null, function(d) {
-        console.log(d);
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             chrome.tabs.sendMessage(tabs[0].id, {'op': op, 'data': d});
         });
@@ -59,7 +58,12 @@ function chipsClickListener(e) {
     }
     chipsPlate.removeChild(this);
     saveChangesAtStorage();
-    sendMsgToContent('keyword-delete');
+    
+    if (mode == 0) {
+        sendMsgToContent('keyword-delete');
+    } else {
+        sendMsgToContent('user-delete');
+    }
 }
 
 // add chips btn click event
@@ -166,7 +170,7 @@ function addNewKeyword(newKeyword) {
             chipsPlate.appendChild(node);
             saveChangesAtStorage();
 
-            sendMsgToContent('keyword-add');
+            sendMsgToContent('user-add');
         }
     }
 }
