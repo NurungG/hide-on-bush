@@ -209,7 +209,7 @@ function resetSearchBar() {
 // Search bar keyup event
 let prevKeyword = "";
 let prevSearched = [];
-document.querySelector("input[name=keyword-searcher]").addEventListener('keyup', function(event) {
+document.querySelector("input[name=keyword-searcher]").addEventListener('input', function(event) {
     $("#clear-btn").toggle(Boolean($(this).val()));
 
     let searchString = event.target.value;

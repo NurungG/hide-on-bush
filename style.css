@@ -245,14 +245,22 @@ input[id="onoff-btn"]:checked + label:before {
 }
 
 .chips-wrapper::-webkit-scrollbar {
-    width: 4px;
+    width: 9px;
+    border-radius: 4.5px;
 }
+
 .chips-wrapper::-webkit-scrollbar-thumb {
-    background-color: grey;
-    border-radius: 4px;
+    background-color: #8bcb9a;
+    border-radius: 4.5px;
     background-clip: padding-box;
-    border: 1px solid transparent;
+    border: 1.5px solid transparent;
 }
+
+.chips-wrapper::-webkit-scrollbar-track {
+    margin-top: 3px;
+    margin-bottom: 2.5px;
+}
+
 
 .chip {
     position: relative;

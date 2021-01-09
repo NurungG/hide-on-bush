@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(function(msg) {
         case 'keyword-add':
         case 'keyword-delete':
             if (msg.data.onoff) {
-                blurContent(msg.data.keywordList, msg.data.userList);
+                blurContent(msg.data.keywordList, msg.data.userBlackList);
             }
             break;
         case 'switch-off':
@@ -83,7 +83,7 @@ function blurContent(keywordList, userList) {
 
 function unblurContent() {
     const ifDocument = document.querySelector('iframe').contentDocument;
-    
+
     const hiddenKeywordCss = ifDocument.getElementById('hidden-keyword-css');
     if (hiddenKeywordCss) {
         hiddenKeywordCss.remove();
