@@ -11,6 +11,22 @@ chrome.runtime.onInstalled.addListener(function() {
             chrome.storage.sync.set({'userList':['Faker', 'Hide on bush', 'T1 Faker']});
         }
     });
+
+
+    // Add context menu
+    chrome.contextMenus.create({
+        id: 'Add as keyword',
+        title: '키워드로 지정',
+        contexts: ['selection'],
+    });
+    chrome.contextMenus.create({
+        id: 'Add as user blacklist',
+        title: '유저 밴',
+        contexts: ['selection'],
+    });
+    chrome.contextMenus.onClicked.addListener = function(e) {
+        console.log("context menu clicked:", e);
+    }
 });
 
 chrome.webNavigation.onCompleted.addListener(function(e) {

@@ -2,7 +2,7 @@
   "name": "Hide on bush",
   "version": "1.0",
   "description": "Let's hide hating content!",
-  "permissions": ["webNavigation", "activeTab", "storage"],
+  "permissions": ["contextMenus", "webNavigation", "activeTab", "storage"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
