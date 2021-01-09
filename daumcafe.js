@@ -6,7 +6,7 @@ chrome.runtime.onMessage.addListener(function(msg) {
         case 'keyword-add':
         case 'keyword-delete':
             if (msg.data.onoff) {
-                blurContent(msg.data.keywordList, msg.data.userBlackList);
+                blurContent(msg.data.keywordList, msg.data.userList);
             }
             break;
         case 'switch-off':
