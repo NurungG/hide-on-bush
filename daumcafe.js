@@ -58,36 +58,41 @@ function blurItems(items, authors, keywordList, userList) {
 }
 
 function blurContent(keywordList, userList) {
-    const ifDocument = document.querySelector('iframe').contentDocument;
+    let myDocument;
+    if (!document.querySelector('iframe#down')) {
+        myDocument = document;
+    } else {
+        myDocument = document.querySelector('iframe').contentDocument;
+    }
 
     // set css style
-    let hiddenKeywordCss = ifDocument.getElementById('hidden-keyword-css');
+    let hiddenKeywordCss = myDocument.getElementById('hidden-keyword-css');
     if (!hiddenKeywordCss) {
-        hiddenKeywordCss = ifDocument.createElement('style');
+        hiddenKeywordCss = myDocument.createElement('style');
         hiddenKeywordCss.id = 'hidden-keyword-css';
     }
     hiddenKeywordCss.innerHTML =
         '.hidden-keyword { color: transparent !important; text-shadow: 0 0 5px rgba(0,0,0,0.5) !important;}\
          .hidden-keyword:hover { color: initial !important; text-shadow: initial !important;}';
-    if (!ifDocument.getElementById(hiddenKeywordCss.id)) {
-        ifDocument.querySelector('head').appendChild(hiddenKeywordCss);
+    if (!myDocument.getElementById(hiddenKeywordCss.id)) {
+        myDocument.querySelector('head').appendChild(hiddenKeywordCss);
     }
 
     // add class to matched content (posts)
-    const postTitles = ifDocument.querySelectorAll(".td_title .txt_item");
-    const postAuthors = ifDocument.querySelectorAll(".td_writer .txt_writer");
+    const postTitles = myDocument.querySelectorAll(".td_title .txt_item");
+    const postAuthors = myDocument.querySelectorAll(".td_writer .txt_writer");
     blurItems(postTitles, postAuthors, keywordList, userList);
 
     // (comments)
-    const comments = ifDocument.querySelectorAll(".comment_post .original_comment");
-    const commentAuthors = ifDocument.querySelectorAll(".comment_post .txt_name");
+    const comments = myDocument.querySelectorAll(".comment_post .original_comment");
+    const commentAuthors = myDocument.querySelectorAll(".comment_post .txt_name");
     blurItems(comments, commentAuthors, keywordList, userList);
 }
 
 function unblurContent() {
-    const ifDocument = document.querySelector('iframe').contentDocument;
+    const myDocument = document.querySelector('iframe').contentDocument;
 
-    const hiddenKeywordCss = ifDocument.getElementById('hidden-keyword-css');
+    const hiddenKeywordCss = myDocument.getElementById('hidden-keyword-css');
     if (hiddenKeywordCss) {
         hiddenKeywordCss.remove();
     }
