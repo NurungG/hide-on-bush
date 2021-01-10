@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
         toggleBtn(onoffBtn);
 
         onoffBtn.addEventListener('change', function(e) {
+            document.querySelector('.onoff-box label').classList.add('active');
             toggleBtn(this);
         });
     });
@@ -58,7 +59,7 @@ function chipsClickListener(e) {
     }
     chipsPlate.removeChild(this);
     saveChangesAtStorage();
-    
+
     if (mode == 0) {
         sendMsgToContent('keyword-delete');
     } else {
@@ -97,6 +98,24 @@ $(".add_form_field input").keypress(function(e) {
         $(this).blur();
     }
 })
+
+$(".add_form_field input").on('input', function(e) {
+    $(this).val(checkTextLength($(this).val()));
+})
+
+function checkTextLength(text) {
+    var len = 0;
+    for (var i = 0; i < text.length; i++){
+        if(escape(text.charAt(i)).length == 6) {
+            len++;
+        }
+        len++;
+        if(len > 34) {
+            return text.substring(0, i);
+        }
+    }
+    return text;
+}
 
 // radio button click event
 $("input:radio[name=tabs]").click(function(){
