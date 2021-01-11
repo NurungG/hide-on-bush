@@ -94,8 +94,12 @@ $(".add_form_field input").keypress(function(e) {
     if(event.keyCode === 13) {
         e.preventDefault();
         let newKeyword = $(this).val();
-        addNewKeyword(newKeyword);
-        $(this).blur();
+        let errMsg = addNewKeyword(newKeyword);
+        if (errMsg) {
+            printErrorMsg(errMsg);
+        } else {
+            $(this).blur();
+        }
     }
 })
 
@@ -115,6 +119,21 @@ function checkTextLength(text) {
         }
     }
     return text;
+}
+
+function printErrorMsg(msg) {
+    let form = $(".add_chips_back");
+    let item = form.first();
+    let node = item.get(0);
+    let pos = item.position();
+    let bubble = $('<span/>').html('<span class="formHintBubble" style="left: '
+                   + pos.left + 'px; top: ' + pos.top + 'px;">' + msg 
+                   + '<div class ="cross">X</div></span>').contents();
+    bubble.insertAfter($(".chips-wrapper"));
+
+    document.querySelector(".cross").addEventListener('click', function() {
+        document.querySelector(".formHintBubble").remove();
+    });
 }
 
 // radio button click event
@@ -165,7 +184,7 @@ function setInitialChips(list) {
 function addNewKeyword(newKeyword) {
     if(mode == 0) {
         if (keywordList.has(newKeyword)) {
-            alert('Keyword already added');
+            return "Keyword already added";
         } else {
             keywordList.add(newKeyword);
             let node = document.createElement("button");
@@ -179,7 +198,7 @@ function addNewKeyword(newKeyword) {
         }
     } else {
         if (userList.has(newKeyword)) {
-            alert('User already added');
+            return "User already added!";
         } else {
             userList.add(newKeyword);
             let node = document.createElement("button");
@@ -192,6 +211,7 @@ function addNewKeyword(newKeyword) {
             sendMsgToContent('user-add');
         }
     }
+    return null;
 }
 
 function saveChangesAtStorage() {
