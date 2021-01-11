@@ -69,20 +69,15 @@ function chipsClickListener(e) {
 
 // add chips btn click event
 $(".add_form_field").on('mousedown', function(e) {
-    $(this).toggleClass('active');
+    $(this).addClass('active');
 })
 
 $(".add_form_field").on('mouseup', function(e) {
     $(this).children('input').focus()
-    if (!$(this).hasClass('active')) {
-        $(this).children('input').blur()
-    }
 })
 
-$(".add_form_field input").on('focus', function(e) {
-    if (!$(this).parent().hasClass('active')) {
-        $(this).blur()
-    }
+$(".add_form_field input").on('focusout', function(e) {
+    document.querySelector(".formHintBubble").remove();
 })
 
 $(".add_form_field input").on('blur', function(e) {
@@ -104,6 +99,11 @@ $(".add_form_field input").keypress(function(e) {
 })
 
 $(".add_form_field input").on('input', function(e) {
+    let bubble = document.querySelector(".formHintBubble");
+    if (bubble) {
+        bubble.remove();
+    }
+
     $(this).val(checkTextLength($(this).val()));
 })
 
@@ -115,6 +115,7 @@ function checkTextLength(text) {
         }
         len++;
         if(len > 34) {
+            printErrorMsg("Input overflow!")
             return text.substring(0, i);
         }
     }
@@ -127,13 +128,10 @@ function printErrorMsg(msg) {
     let node = item.get(0);
     let pos = item.position();
     let bubble = $('<span/>').html('<span class="formHintBubble" style="left: '
-                   + pos.left + 'px; top: ' + pos.top + 'px;">' + msg 
-                   + '<div class ="cross">X</div></span>').contents();
+                   + pos.left + 'px; top: ' + pos.top + 'px;">'
+                   + '<i class="fas fa-exclamation-triangle"></i> '
+                   + msg + '</span>').contents();
     bubble.insertAfter($(".chips-wrapper"));
-
-    document.querySelector(".cross").addEventListener('click', function() {
-        document.querySelector(".formHintBubble").remove();
-    });
 }
 
 // radio button click event
