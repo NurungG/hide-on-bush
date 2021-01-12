@@ -2,6 +2,9 @@
   "name": "Hide on bush",
   "version": "1.0",
   "description": "Let's hide hating content!",
+  "icons": {
+    "16": "icon.png"
+  },
   "permissions": ["contextMenus", "webNavigation", "activeTab", "storage"],
   "background": {
     "scripts": ["background.js"],

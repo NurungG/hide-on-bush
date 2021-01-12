@@ -183,6 +183,10 @@ function setInitialChips(list) {
 }
 
 function addNewKeyword(newKeyword) {
+    newKeyword = newKeyword.trim();
+    if (newKeyword == '') {
+        return "유효하지 않은 문자열입니다."
+    }
     if(mode == 0) {
         if (keywordList.has(newKeyword)) {
             return "이미 존재합니다.";
