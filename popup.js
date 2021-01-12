@@ -88,6 +88,7 @@ $(".add_form_field input").on('blur', function(e) {
 $(".add_form_field input").keypress(function(e) {
     if(event.keyCode === 13) {
         e.preventDefault();
+        removeBubble();
         let newKeyword = $(this).val();
         let errMsg = addNewKeyword(newKeyword);
         if (errMsg) {
@@ -99,14 +100,16 @@ $(".add_form_field input").keypress(function(e) {
 })
 
 $(".add_form_field input").on('input', function(e) {
+    removeBubble();
+    $(this).val(checkTextLength($(this).val()));
+})
+
+function removeBubble() {
     let bubble = document.querySelector(".formHintBubble");
     if (bubble) {
         bubble.remove();
     }
-
-    $(this).val(checkTextLength($(this).val()));
-})
-
+}
 function checkTextLength(text) {
     var len = 0;
     for (var i = 0; i < text.length; i++){
@@ -115,7 +118,7 @@ function checkTextLength(text) {
         }
         len++;
         if(len > 34) {
-            printErrorMsg("Input overflow!")
+            printErrorMsg("글자수 초과!")
             return text.substring(0, i);
         }
     }
@@ -182,7 +185,7 @@ function setInitialChips(list) {
 function addNewKeyword(newKeyword) {
     if(mode == 0) {
         if (keywordList.has(newKeyword)) {
-            return "Keyword already added";
+            return "이미 존재합니다.";
         } else {
             keywordList.add(newKeyword);
             let node = document.createElement("button");

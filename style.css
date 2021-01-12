@@ -17,10 +17,7 @@
 /* Header */
 .header {
     height: 30px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 10px 10px 20px;
 
     display: flex;
     justify-content: flex-end;
@@ -48,7 +45,6 @@
 .onoff-box {
     height: 20px;
     color: #fff;
-    transition: .2s;
 
     font-size: 10px;
 }
@@ -58,12 +54,12 @@
 }
 
 .onoff-text-off {
-    margin: 3px 8px 0 0;
+    margin: 5.5px 8px 0 0;
     text-align: right;
 }
 
 .onoff-text-on {
-    margin: 3px 0 0 8px;
+    margin: 5.5px 0 0 8px;
     text-align: left;
 }
 
@@ -148,7 +144,8 @@ input[id="onoff-btn"]:checked + label:before {
 .search-bar input[type="text"] {
     width: 100%;
     height: 30px;
-    padding: 0 10px 0 10px;
+    padding: 2.5px 10px 0 10px;
+    font-family: 'Jeju Gothic', serif;
     font-size: 16px;
     border-radius: 10px;
     border: 1px solid white;
@@ -212,6 +209,7 @@ input[id="onoff-btn"]:checked + label:before {
 
 .add_form_field.active input {
     background: white;
+    padding: 4.5px 20px 4.5px 10px;
     border-color: #8bcb9a;
     color: black;
     width: 120px;
@@ -237,7 +235,7 @@ input[id="onoff-btn"]:checked + label:before {
 span.formHintBubble {
     position: absolute;
     background: #ffe600;
-    margin-top: 39px;
+    margin-top: 30px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
@@ -269,7 +267,7 @@ span.formHintBubble:after {
     border-width: 6px;
     border-bottom-color: #ffe600;
     content:" ";
-    margin-bottom: 23px;
+    margin-bottom: 21px;
     left: 29px
 }
 
@@ -310,15 +308,15 @@ span.formHintBubble:after {
 .chip {
     position: relative;
     margin: 3px;
-    padding: 5px 10px 5px 10px;
+    padding: 7px 10px 7px 10px;
     outline: none;
-    border: 1px solid white;
+    border: none;
     border-radius: 10px;
     color: #418f53;
     background: #e8f4eb;
     cursor: pointer;
     font-family: 'Jeju Gothic', serif;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .chip::after {
@@ -376,6 +374,7 @@ span.formHintBubble:after {
     font-size: 13px;
     transition: all ease 0.2s;
 }
+
 .footer input[type="radio"] {
 	display: none;
 }
