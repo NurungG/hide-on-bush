@@ -5,7 +5,7 @@ var mode = 0;
 // Popup load
 document.addEventListener('DOMContentLoaded', function(e) {
     // get onoff status
-    chrome.storage.sync.get(['onoff'], function(d) {
+    /*chrome.storage.sync.get(['onoff'], function(d) {
         let onoffBtn = document.querySelector("#onoff-btn");
         onoffBtn.checked = d.onoff;
         toggleBtn(onoffBtn);
@@ -14,13 +14,15 @@ document.addEventListener('DOMContentLoaded', function(e) {
             document.querySelector('.onoff-box label').classList.add('active');
             toggleBtn(this);
         });
-    });
+    }); */
+    let app = new AppController();
 
     // get keyword list
+    const str = "hello world?";
     chrome.storage.sync.get(['keywordList'], function(d) {
         keywordList = new Set(d.keywordList);
         setInitialChips(keywordList);
-    })
+    });
 
     // get user Blacklist
     chrome.storage.sync.get(['userList'], function(d) {

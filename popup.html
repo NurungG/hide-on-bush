@@ -11,7 +11,7 @@
 
     <div class="header">
       <div class="onoff-box">
-        <input type="checkbox" id="onoff-btn" name="onoff-btn">
+        <input type="checkbox" class="onoff-btn" id="onoff-btn" name="onoff-btn">
         <label for="onoff-btn" class="round" name="onoff-label">
           <div class="onoff-text-off" id="onoff-text">OFF</div>
         </label>
@@ -40,14 +40,15 @@
 
     <div class="footer">
       <input type="radio" name="tabs" id="keyword-tab" value="keyword-tab" checked="checked">
-      <!-- <img src="img/keyword-blind.png"> -->
       <label for="keyword-tab">Keywords</label>
 
       <input type="radio" name="tabs" id="user-tab" value="user-tab">
-      <!-- <img src="img/user-blind.png"> -->
       <label for="user-tab">User Blacklist</label>
     </div>
   </div>
+  <script src="app.controller.js"></script>
+  <script src="app.model.js"></script>
+  <script src="app.view.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>
