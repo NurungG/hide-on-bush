@@ -53,12 +53,12 @@
     filter: brightness(110%);
 }
 
-.onoff-text-off {
+.onoff-text.off {
     margin: 5.5px 8px 0 0;
     text-align: right;
 }
 
-.onoff-text-on {
+.onoff-text.on {
     margin: 5.5px 0 0 8px;
     text-align: left;
 }

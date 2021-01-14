@@ -4,30 +4,9 @@ var chipsPlate;
 var mode = 0;
 // Popup load
 document.addEventListener('DOMContentLoaded', function(e) {
-    // get onoff status
-    /*chrome.storage.sync.get(['onoff'], function(d) {
-        let onoffBtn = document.querySelector("#onoff-btn");
-        onoffBtn.checked = d.onoff;
-        toggleBtn(onoffBtn);
-
-        onoffBtn.addEventListener('change', function(e) {
-            document.querySelector('.onoff-box label').classList.add('active');
-            toggleBtn(this);
-        });
-    }); */
-    let app = new AppController();
-
-    // get keyword list
-    const str = "hello world?";
-    chrome.storage.sync.get(['keywordList'], function(d) {
-        keywordList = new Set(d.keywordList);
-        setInitialChips(keywordList);
+    chrome.storage.sync.get(null, function(data) {
+        app = new AppController(data);
     });
-
-    // get user Blacklist
-    chrome.storage.sync.get(['userList'], function(d) {
-        userList = new Set(d.userList);
-    })
 });
 
 function sendMsgToContent(op) {
@@ -38,68 +17,8 @@ function sendMsgToContent(op) {
     });
 }
 
-function toggleBtn(btn) {
-    let onoffText = document.getElementById("onoff-text");
-    if (btn.checked) {
-        onoffText.setAttribute("class", "onoff-text-on")
-        onoffText.innerHTML = "ON";
-        chrome.storage.sync.set({'onoff': true});
-        sendMsgToContent('switch-on');
-    } else {
-        onoffText.setAttribute("class", "onoff-text-off")
-        onoffText.innerHTML = "OFF";
-        chrome.storage.sync.set({'onoff': false});
-        sendMsgToContent('switch-off');
-    }
-};
-
-function chipsClickListener(e) {
-    if (mode == 0) {
-        keywordList.delete($(this).text());
-    } else {
-        userList.delete($(this).text());
-    }
-    chipsPlate.removeChild(this);
-    saveChangesAtStorage();
-
-    if (mode == 0) {
-        sendMsgToContent('keyword-delete');
-    } else {
-        sendMsgToContent('user-delete');
-    }
-}
-
 // add chips btn click event
-$(".add_form_field").on('mousedown', function(e) {
-    $(this).addClass('active');
-})
-
-$(".add_form_field").on('mouseup', function(e) {
-    $(this).children('input').focus()
-})
-
-$(".add_form_field input").on('focusout', function(e) {
-    document.querySelector(".formHintBubble").remove();
-})
-
-$(".add_form_field input").on('blur', function(e) {
-    $(this).val('');
-    $(this).parent().removeClass('active')
-})
-
-$(".add_form_field input").keypress(function(e) {
-    if(event.keyCode === 13) {
-        e.preventDefault();
-        removeBubble();
-        let newKeyword = $(this).val();
-        let errMsg = addNewKeyword(newKeyword);
-        if (errMsg) {
-            printErrorMsg(errMsg);
-        } else {
-            $(this).blur();
-        }
-    }
-})
+/*
 
 $(".add_form_field input").on('input', function(e) {
     removeBubble();
@@ -125,19 +44,9 @@ function checkTextLength(text) {
         }
     }
     return text;
-}
+}*/
 
-function printErrorMsg(msg) {
-    let form = $(".add_chips_back");
-    let item = form.first();
-    let node = item.get(0);
-    let pos = item.position();
-    let bubble = $('<span/>').html('<span class="formHintBubble" style="left: '
-                   + pos.left + 'px; top: ' + pos.top + 'px;">'
-                   + '<i class="fas fa-exclamation-triangle"></i> '
-                   + msg + '</span>').contents();
-    bubble.insertAfter($(".chips-wrapper"));
-}
+
 
 // radio button click event
 $("input:radio[name=tabs]").click(function(){
