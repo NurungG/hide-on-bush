@@ -2,10 +2,14 @@
     function AppView() {}
 
     AppView.prototype = {
+        /* onoff button */
         loadOnoffState : function(onoffState) {
-            let onoffBtn = document.querySelectorAll("#onoff-btn");
+            let onoffBtn = document.querySelector("#onoff-btn");
             onoffBtn.checked = onoffState;
             this.toggleOnoffButton(onoffBtn);
+        },
+        activateButtonSwiping : function() {
+            document.querySelector("#onoff-label").classList.add("active");
         },
         toggleOnoffButton : function(onoffBtn) {
             let onoffText = document.querySelector("#onoff-text");
@@ -17,13 +21,47 @@
                 onoffText.innerText = "OFF";
             }
         },
-        renderChips : function(itemSet) {
-            for (let item of itemSet) {
-                let newChip = document.createElement("button");
-                newChip.innerText = item;
-                newChip.classList.add("chip");
+        /* search bar */
+        toggleButtons : function() {
+            let clearBtn = document.querySelector("#clear-btn");
+            let searchBar = document.querySelector("#search-bar");
+            let addBtn = document.querySelector("#chip-add-btn");
 
-                document.querySelector(".chips-wrapper").appendChild(newChip);
+            if (searchBar.value) {
+                clearBtn.style.display = "inline";
+                addBtn.style.display = "none";
+            } else {
+                clearBtn.style.display = "none";
+                addBtn.style.display = "block";
+            }
+        },
+        resetSearchBar : function() {
+            document.querySelector("#search-bar").value = null;
+            document.querySelector("#clear-btn").style.display = "none";
+        },
+        /* chips */
+        addChip : function(item) {
+            let newChip = document.createElement("button");
+            newChip.innerText = item;
+            newChip.classList.add("chip");
+            document.querySelector(".chips-wrapper").appendChild(newChip);
+            return newChip;
+        },
+        renderChips : function(itemList) {
+            for (let item of itemList) {
+                this.addChip(item);
+            }
+        },
+        renderInitialChips : function(itemList) {
+            document.querySelector("#chip-add-btn").style.display = "block";
+            for (let item of itemList) {
+                this.addChip(item);
+            }
+        },
+        removeAllChips : function() {
+            let chipList = document.querySelectorAll(".chip");
+            for (let chip of chipList) {
+                chip.remove();
             }
         },
         removeChip : function(chip) {
@@ -38,6 +76,7 @@
             field.querySelector("input").value = "";
             this.removeBubble();
         },
+        /* bubble */
         bubbleErrorMsg : function(msg) {
             /* TODO: change it to vanila js */
             let form = $(".add_chips_back");
@@ -56,7 +95,18 @@
                 bubble.remove();
             }
         },
-        /* TODO: more view methods here */
+        /* tab */
+        activateFooterTab : function(target) {
+            if (target.classList.contains("active")) {
+                return false;
+            }
+            let footerTabList = document.querySelectorAll(".footer-tab");
+            for (let footerTab of footerTabList) {
+                footerTab.classList.remove("active");
+            }
+            target.classList.add("active");
+            return true;
+        }
     }
 
     exports.AppView = AppView;

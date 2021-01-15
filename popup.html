@@ -11,8 +11,8 @@
 
     <div class="header">
       <div class="onoff-box">
-        <input type="checkbox" class="onoff-btn" id="onoff-btn" name="onoff-btn">
-        <label for="onoff-btn" class="round" name="onoff-label">
+        <input type="checkbox" id="onoff-btn" name="onoff-btn">
+        <label for="onoff-btn" class="round" id="onoff-label" name="onoff-label">
           <div class="onoff-text off" id="onoff-text">OFF</div>
         </label>
       </div>
@@ -22,7 +22,7 @@
       <div class="tab-wrapper" id="tab-keyword-list">
         <div class="search-wrapper">
           <div class="search-bar">
-            <input type="text" placeholder="검색" name="keyword-searcher" id="searchBar">
+            <input type="text" placeholder="검색" name="keyword-searcher" id="search-bar">
             <i class="fas fa-times-circle" aria-hidden="true" id="clear-btn"></i>
           </div>
         </div>
@@ -31,7 +31,7 @@
           <form class="add_chips_back">
             <div class="add_form_field" id="chip-add-btn">
               <i class="fas fa-plus add_chips_icon" aria-hidden="true"></i>
-              <input type="text" name="add_chips_text" class="extand_chips">
+              <input type="text" class="extand_chips">
             </div>
           </form>
         </div>
@@ -39,10 +39,10 @@
     </div>
 
     <div class="footer">
-      <input type="radio" name="tabs" id="keyword-tab" value="keyword-tab" checked="checked">
+      <input type="radio" class="footer-tab active" name="tabs" id="keyword-tab" value="keyword-tab" index="0" checked="checked">
       <label for="keyword-tab">Keywords</label>
 
-      <input type="radio" name="tabs" id="user-tab" value="user-tab">
+      <input type="radio" class="footer-tab" name="tabs" id="user-tab" value="user-tab" index="1">
       <label for="user-tab">User Blacklist</label>
     </div>
   </div>

@@ -215,15 +215,15 @@ input[id="onoff-btn"]:checked + label:before {
     width: 120px;
 }
 
-.add_form_field i:hover {
+.add_form_field i {
     cursor: pointer;
 }
 
-.add_form_field input:hover {
+.add_form_field input {
     cursor: pointer;
 }
 
-.add_form_field.active input:hover {
+.add_form_field.active input {
     cursor:text;
 }
 
