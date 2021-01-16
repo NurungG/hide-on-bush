@@ -149,33 +149,4 @@
     }
 
     exports.AppController = AppController;
-
-
-    /* AppMessenger (temporally place it here) */
-    function AppMessenger() {
-
-    }
-
-    AppMessenger.prototype = {
-        sendMsgToContent : function(op) {
-            
-        },
-        sendOnoffState : function(value) {
-
-        },
-        sendAddedItem : function(value) {
-
-        },
-        sendRemovedItem : function(value) {
-
-        },
-        sendRemovedKeyword : function(value) {
-
-        },
-        sendRemovedUser : function(value) {
-
-        },
-    }
-
-    exports.AppMessenger = AppMessenger;
 })(this);

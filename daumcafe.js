@@ -3,11 +3,9 @@ chrome.runtime.onMessage.addListener(function(msg) {
     switch (msg.op) {
         case 'page-load':
         case 'switch-on':
-        case 'keyword-add':
-        case 'keyword-delete':
-        case 'user-add':
-        case 'user-delete':
-            if (msg.data.onoff) {
+        case 'item-add':
+        case 'item-remove':
+            if (msg.data.onoffState) {
                 blurContent(msg.data.keywordList, msg.data.userList);
             }
             break;

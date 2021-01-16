@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener(function() {
     /* Init the extension */
-    chrome.storage.sync.set({'onoff':false});
+    chrome.storage.sync.set({'onoffState': false});
     chrome.storage.sync.get(['keywordList'], function(d) {
         if (!d.keywordList) {
             chrome.storage.sync.set({'keywordList':['Hi!', 'This is Hide-on-bush', 'We love Faker']});
@@ -50,7 +50,7 @@ function contextMenusListener(info) {
                 chrome.storage.sync.set({keywordList: Array.from(keywordSet)});
                 chrome.storage.sync.get(null, function(d) {
                     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-                        chrome.tabs.sendMessage(tabs[0].id, {'op': 'keyword-add', 'data': d});
+                        chrome.tabs.sendMessage(tabs[0].id, {'op': 'item-add', 'data': d});
                     });
                 });
             });
@@ -65,7 +65,7 @@ function contextMenusListener(info) {
                 chrome.storage.sync.set({userList: Array.from(userSet)});
                 chrome.storage.sync.get(null, function(d) {
                     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-                        chrome.tabs.sendMessage(tabs[0].id, {'op': 'user-add', 'data': d});
+                        chrome.tabs.sendMessage(tabs[0].id, {'op': 'item-add', 'data': d});
                     });
                 });
             });
