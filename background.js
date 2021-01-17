@@ -16,12 +16,12 @@ chrome.runtime.onInstalled.addListener(function() {
     // Add context menu
     chrome.contextMenus.create({
         id: 'context-menu-add-keyword',
-        title: '\'%s\'를 키워드로 지정',
+        title: '\'%s\' 키워드 등록',
         contexts: ['selection'],
     });
     chrome.contextMenus.create({
         id: 'context-menu-add-user',
-        title: '\'%s\' 유저를 밴',
+        title: '\'%s\' 유저 등록',
         contexts: ['selection'],
     });
     chrome.contextMenus.onClicked.addListener(contextMenusListener);
@@ -37,14 +37,20 @@ chrome.webNavigation.onCompleted.addListener(function(e) {
 
 function contextMenusListener(info) {
     const itemId = info.menuItemId;
-    const itemText = info.selectionText;
+    let itemText = info.selectionText;
+
+    if (!checkTextLength(itemText)) {
+        console.log(itemText);
+        alert("글자수 초과!");
+        return;
+    }
 
     switch (itemId) {
         case 'context-menu-add-keyword':
             chrome.storage.sync.get(['keywordList'], function(d) {
                 let keywordSet = new Set(d.keywordList);
                 if (keywordSet.has(itemText)) {
-                    alert("A keyword \'" + itemText + "\' was already added");
+                    alert("\'" + itemText + "\' 키워드는 이미 등록되어 있습니다.");
                 }
                 keywordSet.add(itemText);
                 chrome.storage.sync.set({keywordList: Array.from(keywordSet)});
@@ -59,7 +65,7 @@ function contextMenusListener(info) {
             chrome.storage.sync.get(['userList'], function(d) {
                 let userSet = new Set(d.userList);
                 if (userSet.has(itemText)) {
-                    alert("A user \'" + itemText + "\' was already added");
+                    alert("\'" + itemText + "\' 유저는 이미 등록되어 있습니다.");
                 }
                 userSet.add(itemText);
                 chrome.storage.sync.set({userList: Array.from(userSet)});
@@ -70,5 +76,19 @@ function contextMenusListener(info) {
                 });
             });
             break;
+    }
+
+    function checkTextLength(text) {
+        let len = 0;
+        for (let i = 0; i < text.length; i++){
+            if(escape(text.charAt(i)).length == 6) {
+                len++;
+            }
+            len++;
+            if(len > 34) {
+                return false;
+            }
+        }
+        return true;
     }
 }
