@@ -6,7 +6,7 @@
         this.messenger = new AppMessenger();
 
         this.view.loadOnoffState(this.model.getOnoffState());
-        this.view.renderInitialChips(this.model.getCurrentItems());
+        this.view.renderInitialChips(this.model.getCurrentItems(), this.onClickRemoveChip.bind(this));
 
         document.querySelector("#onoff-btn").addEventListener(
             "change", this.onChangeToggleOnoff.bind(this)
@@ -18,11 +18,6 @@
         document.querySelector("#clear-btn").addEventListener(
             "click", this.onClickClearSearchBar.bind(this)
         )
-
-        let chipList = document.querySelectorAll(".chip");
-        for (let chip of chipList) {
-            chip.addEventListener("click", this.onClickRemoveChip.bind(this))
-        }
 
         document.querySelector("#chip-add-btn").addEventListener(
             "mousedown", this.onClickOpenAddField.bind(this)
@@ -57,12 +52,12 @@
             let nowSearch = event.target.value;
             this.view.toggleButtons();
             this.view.removeAllChips();
-            this.view.renderChips(this.model.getMachtedItems(nowSearch));
+            this.view.renderChips(this.model.getMachtedItems(nowSearch), this.onClickRemoveChip.bind(this));
         },
         onClickClearSearchBar : function(event) {
             this.view.resetSearchBar();
             this.view.removeAllChips();
-            this.view.renderInitialChips(this.model.getCurrentItems());
+            this.view.renderInitialChips(this.model.getCurrentItems(), this.onClickRemoveChip.bind(this));
         },
         onClickRemoveChip : function(event) {
             let targetChip = event.target;
@@ -96,7 +91,7 @@
                 if (errMsg) {
                     this.view.bubbleErrorMsg(errMsg);
                 } else {
-                    this.view.addChip(newItem).addEventListener(
+                    this.view.addChip(newItem, this.onClickRemoveChip.bind(this)).addEventListener(
                         "click", this.onClickRemoveChip.bind(this)
                     );
                     this.messenger.sendAddedItem(newItem);
@@ -144,7 +139,7 @@
 
             this.view.removeAllChips();
             this.view.resetSearchBar();
-            this.view.renderInitialChips(this.model.getCurrentItems());
+            this.view.renderInitialChips(this.model.getCurrentItems(), this.onClickRemoveChip.bind(this));
         }
     }
 

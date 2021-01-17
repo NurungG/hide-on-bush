@@ -40,22 +40,23 @@
             document.querySelector("#clear-btn").style.display = "none";
         },
         /* chips */
-        addChip : function(item) {
+        addChip : function(item, listener) {
             let newChip = document.createElement("button");
             newChip.innerText = item;
             newChip.classList.add("chip");
+            newChip.addEventListener("click", listener);
             document.querySelector(".chips-wrapper").appendChild(newChip);
             return newChip;
         },
-        renderChips : function(itemList) {
+        renderChips : function(itemList, listener) {
             for (let item of itemList) {
-                this.addChip(item);
+                this.addChip(item, listener);
             }
         },
-        renderInitialChips : function(itemList) {
+        renderInitialChips : function(itemList, listener) {
             document.querySelector("#chip-add-btn").style.display = "block";
             for (let item of itemList) {
-                this.addChip(item);
+                this.addChip(item, listener);
             }
         },
         removeAllChips : function() {
