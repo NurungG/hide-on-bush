@@ -16,7 +16,7 @@
   },
   "content_scripts": [{
     "js": [ "daumcafe.js" ],
-    "matches": [ "http://cafe.daum.net/*"],
+    "matches": [ "https://cafe.daum.net/*"],
     "run_at": "document_idle"
   }],
   "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com; object-src 'self'",
