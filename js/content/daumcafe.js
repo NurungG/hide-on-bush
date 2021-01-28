@@ -17,7 +17,10 @@ chrome.runtime.onMessage.addListener(function(msg) {
     }
 });
 
-function keywordMatch(str, keywordList) {
+function keywordMatch(element, keywordList) {
+    if (!element) { return false; }
+
+    const str = element.innerText;
     for (let keyword of keywordList) {
         if (str.match(keyword)) {
             return true;
@@ -26,7 +29,8 @@ function keywordMatch(str, keywordList) {
     return false;
 }
 
-function userMatch(str, userList) {
+function userMatch(element, userList) {
+    const str = element.innerText;
     for (let user of userList) {
         if (str === user) {
             return true;
@@ -42,14 +46,23 @@ function blurItems(items, authors, keywordList, userList) {
     }
     for (let i = 0; i < items.length; i++) {
         const item = items[i];
+        const tag = item.querySelector(".txt_preface");
         const author = authors[i];
 
         item.style.transition = ".5s";
         author.style.transition = ".5s";
-        if (keywordMatch(item.innerText, keywordList) ||
-            userMatch(author.innerText, userList)) {
+        if (keywordMatch(item, keywordList) ||
+            keywordMatch(tag, keywordList) ||
+            userMatch(author, userList)) {
             item.classList.add('hidden-keyword');
             author.classList.add('hidden-keyword');
+
+            let childNodes = item.childNodes;
+            for (let child of childNodes) {
+                if (child.style) {
+                    child.style.color = "inherit";
+                }
+            }
         } else {
             item.classList.remove('hidden-keyword');
             author.classList.remove('hidden-keyword');
@@ -70,17 +83,16 @@ function blurContent(keywordList, userList) {
     if (!hiddenKeywordCss) {
         hiddenKeywordCss = myDocument.createElement('style');
         hiddenKeywordCss.id = 'hidden-keyword-css';
-    }
-    hiddenKeywordCss.innerHTML =
-        '.hidden-keyword { color: transparent !important; text-shadow: 0 0 5px rgba(0,0,0,0.5) !important;}\
-         .hidden-keyword:hover { color: initial !important; text-shadow: initial !important;}';
-    if (!myDocument.getElementById(hiddenKeywordCss.id)) {
+        hiddenKeywordCss.innerHTML =
+            '.hidden-keyword { color: transparent !important; text-shadow: 0 0 5px rgba(0,0,0,0.5) !important;}\
+            .hidden-keyword:hover { color: initial !important; text-shadow: initial !important;}';
         myDocument.querySelector('head').appendChild(hiddenKeywordCss);
     }
 
     // add class to matched content (posts)
     const postTitles = myDocument.querySelectorAll(".td_title .txt_item");
     const postAuthors = myDocument.querySelectorAll(".td_writer .txt_writer");
+    const postTags = myDocument.querySelectorAll(".td_title .txt_preface");
     blurItems(postTitles, postAuthors, keywordList, userList);
 
     // (comments)
