@@ -1,3 +1,5 @@
+console.log("Hide-on-bush: script is injected");
+
 chrome.runtime.onMessage.addListener(function(msg) {
     console.log(msg);
     switch (msg.op) {

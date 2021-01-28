@@ -3,19 +3,19 @@
   "version": "1.0",
   "description": "Let's hide hating content!",
   "icons": {
-    "16": "icon.png"
+    "16": "img/icon.png"
   },
   "permissions": ["contextMenus", "webNavigation", "activeTab", "storage"],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["js/background.js"],
     "persistent": false
   },
   "browser_action": {
-    "default_popup": "popup.html",
-    "default_icon": "icon.png"
+    "default_popup": "hide-on-bush.html",
+    "default_icon": "img/icon.png"
   },
   "content_scripts": [{
-    "js": [ "daumcafe.js" ],
+    "js": [ "js/content/daumcafe.js" ],
     "matches": [ "https://cafe.daum.net/*"],
     "run_at": "document_idle"
   }],

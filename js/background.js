@@ -36,6 +36,7 @@ chrome.webNavigation.onCompleted.addListener(function(event) {
 });
 
 function contextMenusListener(info) {
+    console.log("context menu listener");
     const itemId = info.menuItemId;
     let itemText = info.selectionText;
 
