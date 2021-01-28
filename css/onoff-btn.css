@@ -1,0 +1,70 @@
+.onoff-box {
+    height: 20px;
+    color: #fff;
+
+    font-size: 10px;
+}
+
+.onoff-box:hover {
+    filter: brightness(110%);
+}
+
+.onoff-text.off {
+    margin: 5.5px 8px 0 0;
+    text-align: right;
+}
+
+.onoff-text.on {
+    margin: 5.5px 0 0 8px;
+    text-align: left;
+}
+
+.onoff-box input[id="onoff-btn"] {
+    display: none;
+}
+
+.onoff-box label {
+    display: inline-block;
+    width: 48px;
+    height: 20px;
+    cursor: pointer;
+    position: relative;
+    vertical-align: top;
+    background-color: #5f647b;
+
+    box-shadow: 0 0 8px black;
+}
+
+/* pseudo checkbox shape*/
+.onoff-box label::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    left: 2px;
+    bottom: 2px;
+    position: absolute;
+    background-color: #fff;
+}
+
+label.active:before {
+    transition: all 0.2s;
+}
+
+input[id="onoff-btn"]:checked + label {
+    background-color: #11a683;
+}
+
+input[id="onoff-btn"]:checked + label:before {
+    -webkit-transform: translateX(28px);
+    -ms-transform: translateX(28px);
+    transform: translateX(28px);
+}
+
+.onoff-box label.round {
+    border-radius: 10px
+}
+
+.onoff-box label.round::before {
+    border-radius: 50%
+}

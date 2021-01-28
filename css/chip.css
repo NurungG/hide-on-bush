@@ -1,0 +1,179 @@
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+/* add chips btn */
+.add_chips_back {
+    background: transparent;
+}
+
+.add_form_field {
+    transition: 0.3s;
+    position: relative;
+    margin: 3px;
+}
+
+.add_form_field i {
+    transition: all 0.3s ease-in;
+    color: white;
+    position: absolute;
+    transform: translateY(-50%);
+    left: 11px;
+    top: 50%;
+}
+
+.add_form_field input {
+    outline: none;
+    transition: all 0.3s ease-in;
+    background: #8bcb9a;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 5px 20px 5px 10px;
+    color: white;
+    width: 0;
+}
+
+.add_form_field.active {
+    transition: all 0.3s ease-in;
+}
+
+.add_form_field.active i {
+    color: #8bcb9a;
+    display: block;
+    transform: translateX(120px) translateY(-50%) rotate(-45deg) ;
+}
+
+.add_form_field.active input {
+    background: white;
+    padding: 4.5px 20px 4.5px 10px;
+    border-color: #8bcb9a;
+    color: black;
+    width: 120px;
+}
+
+.add_form_field i {
+    cursor: pointer;
+}
+
+.add_form_field input {
+    cursor: pointer;
+}
+
+.add_form_field.active input {
+    cursor:text;
+}
+
+.add_form_field:hover {
+    filter: brightness(105%);
+}
+
+/* bubble */
+span.formHintBubble {
+    position: absolute;
+    background: #ffe600;
+    margin-top: 32px;
+    margin-left: 2px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    -o-border-radius: 10px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    padding: 5px 10px 5px 10px;
+    color: black;
+    zoom: 1;
+    z-index: 8;
+    -webkit-box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+    font-size: 10px;
+}
+
+span.formHintBubble:after {
+    height: 0;
+    width: 0;
+    position: absolute;
+    margin-left: -15px;
+    bottom: 0px;
+    z-index: 9;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 6px;
+    border-bottom-color: #ffe600;
+    content:" ";
+    margin-bottom: 21px;
+    left: 29px
+}
+
+.chips-wrapper {
+    height: 225px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: left;
+    align-items: flex-start;
+    align-content: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: white;
+    padding: 5px 5px 5px 5px;
+    margin: 10px 10px 10px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #8bcb9a;
+}
+
+.chips-wrapper::-webkit-scrollbar {
+    width: 9px;
+    border-radius: 4.5px;
+}
+
+.chips-wrapper::-webkit-scrollbar-thumb {
+    background-color: #8bcb9a;
+    border-radius: 4.5px;
+    background-clip: padding-box;
+    border: 1.5px solid transparent;
+}
+
+.chips-wrapper::-webkit-scrollbar-track {
+    margin-top: 3px;
+    margin-bottom: 2.5px;
+}
+
+
+.chip {
+    position: relative;
+    margin: 3px;
+    padding: 7px 10px 7px 10px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    color: #418f53;
+    background: #e8f4eb;
+    cursor: pointer;
+    font-family: 'Jeju Gothic', serif;
+    font-size: 11px;
+}
+
+.chip::after {
+    content: "X";
+    color:white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f26269;
+    border-radius: 10px;
+    z-index: 1;
+    transform: scale(0, 1);
+    transform-origin: 50% 0%;
+    transition: transform 0.35s;
+    opacity: 0.8;
+}
+
+.chip:hover::after {
+    transform: scale(1, 1);
+}
