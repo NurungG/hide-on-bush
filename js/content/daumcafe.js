@@ -49,20 +49,27 @@ function blurItems(items, authors, keywordList, userList) {
         const tag = item.querySelector(".txt_preface");
         const author = authors[i];
 
-        item.style.transition = ".5s";
-        author.style.transition = ".5s";
         if (keywordMatch(item, keywordList) ||
             keywordMatch(tag, keywordList) ||
             userMatch(author, userList)) {
-            item.classList.add('hidden-keyword');
-            author.classList.add('hidden-keyword');
 
-            let childNodes = item.childNodes;
-            for (let child of childNodes) {
-                if (child.style) {
-                    child.style.color = "inherit";
+            function blurContent(element) {
+                let childNodes = element.childNodes;
+                for (let child of childNodes) {
+                    let flag = 0;
+                    if (child.innerText) {
+                        blurContent(child);
+                        flag = 1;
+                    }
+                    if (flag) { return; }
                 }
+                element.style.transition = '.5s';
+                element.classList.add('hidden-keyword');
             }
+
+            blurContent(item);
+            blurContent(author);
+            
         } else {
             item.classList.remove('hidden-keyword');
             author.classList.remove('hidden-keyword');
