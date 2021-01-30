@@ -53,15 +53,17 @@ function blurItems(items, authors, keywordList, userList) {
             keywordMatch(tag, keywordList) ||
             userMatch(author, userList)) {
 
+            if (tag) {
+                tag.style.color = "inherit";
+            }
+
             function blurDirectlyEmbracingElement(element) {
                 let childNodes = element.childNodes;
                 for (let child of childNodes) {
-                    let flag = 0;
-                    if (child.innerText) {
-                        blurDirectlyEmbracingElement(child);
-                        flag = 1;
+                    if (child.innerText &&
+                        child.innerText.trim() == element.innerText.trim()) {
+                        return blurDirectlyEmbracingElement(child);
                     }
-                    if (flag) { return; }
                 }
                 element.style.transition = '.5s';
                 element.classList.add('hidden-keyword');
@@ -69,13 +71,20 @@ function blurItems(items, authors, keywordList, userList) {
 
             blurDirectlyEmbracingElement(item);
             blurDirectlyEmbracingElement(author);
-            if (tag) {
-                blurDirectlyEmbracingElement(tag);
-            }
             
         } else {
-            item.classList.remove('hidden-keyword');
-            author.classList.remove('hidden-keyword');
+            function unblurRecursive(element) {
+                console.log(element);
+                let childNodes = element.childNodes;
+                for (let child of childNodes) {
+                    if (child.innerText) {
+                        unblurRecursive(child);
+                    }
+                }
+                element.classList.remove('hidden-keyword');
+            }
+            unblurRecursive(item);
+            unblurRecursive(author);
         }
     }
 }
