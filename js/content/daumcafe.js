@@ -53,12 +53,12 @@ function blurItems(items, authors, keywordList, userList) {
             keywordMatch(tag, keywordList) ||
             userMatch(author, userList)) {
 
-            function blurContent(element) {
+            function blurDirectlyEmbracingElement(element) {
                 let childNodes = element.childNodes;
                 for (let child of childNodes) {
                     let flag = 0;
                     if (child.innerText) {
-                        blurContent(child);
+                        blurDirectlyEmbracingElement(child);
                         flag = 1;
                     }
                     if (flag) { return; }
@@ -67,8 +67,11 @@ function blurItems(items, authors, keywordList, userList) {
                 element.classList.add('hidden-keyword');
             }
 
-            blurContent(item);
-            blurContent(author);
+            blurDirectlyEmbracingElement(item);
+            blurDirectlyEmbracingElement(author);
+            if (tag) {
+                blurDirectlyEmbracingElement(tag);
+            }
             
         } else {
             item.classList.remove('hidden-keyword');
